@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Geochat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <script src="//maps.google.com/maps/api/js?sensor=false"></script>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body<%= " class='welcome'" unless current_user %>>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner light">
+    <div class="container">
+      <a href="/#/index" class="brand">Geochat</a>
+      <p class="navbar-text channel-name pull-left"></p>
+      <ul class="session nav pull-right">
+        <% if current_user %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="icon-user icon-white"></i>
+              <%= current_user.nickname %>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Sign Out", signout_path %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="main" class="container">
+  <% if current_user %>
+    <%= yield %>
+  <% else %>
+    <div class="hero-unit">
+      <h1>Welcome to Geochat!</h1>
+      <p>You need sign in with Twitter to try this out.</p>
+      <%= link_to image_tag("twitter_auth_button.png"), "/auth/twitter" %>
+    </div>
+  <% end %>
+</div>
+
+</body>
+</html>

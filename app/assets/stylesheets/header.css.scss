@@ -1,0 +1,40 @@
+body {
+  padding-top: 60px;
+}
+
+.navbar {
+  height: 40px;
+  .session {
+    .avatar {
+      border-radius: 4px;
+      height: 32px;
+      width: 32px;
+    }
+  }
+}
+
+.navbar-fixed-top .container {
+  width: auto;
+  padding: 0 10px 0 15px;
+}
+
+
+.navbar-inner {
+  color: #fff;
+  background-color: #b2b2b2;
+  background-image: -moz-linear-gradient(top, #c2c2c2, #aaaaaa);
+  background-image: -ms-linear-gradient(top, #c2c2c2, #aaaaaa);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c2c2c2), to(#aaaaaa));
+  background-image: -webkit-linear-gradient(top, #c2c2c2, #aaaaaa);
+  background-image: -o-linear-gradient(top, #c2c2c2, #aaaaaa);
+  background-image: linear-gradient(top, #c2c2c2, #aaaaaa);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#c2c2c2', endColorstr='#aaaaaa', GradientType=0);
+  -webkit-box-shadow: 0 1px 3px rgba(50, 50, 50, 0.25), inset 0 -1px 0 rgba(50, 50, 50, 0.1);
+     -moz-box-shadow: 0 1px 3px rgba(50, 50, 50, 0.25), inset 0 -1px 0 rgba(50, 50, 50, 0.1);
+          box-shadow: 0 1px 3px rgba(50, 50, 50, 0.25), inset 0 -1px 0 rgba(50, 50, 50, 0.1);
+
+  .brand, .nav > li > a {
+    color: #fff;
+  }
+}
