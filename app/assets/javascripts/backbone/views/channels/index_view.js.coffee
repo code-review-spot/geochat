@@ -14,6 +14,7 @@ class Geochat.Views.Channels.IndexView extends Backbone.View
     @$("tbody").append(view.render().el)
 
   render: =>
+    if gc.pusher? then gc.pusher.disconnect()
     $(@el).html(@template(channels: @options.channels.toJSON() ))
     @addAll()
 

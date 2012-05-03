@@ -2,7 +2,7 @@ Geochat::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
   require 'pusher'
 
-  Pusher.key    = '40234d35c2ab66576b25'
+  Pusher.key = '40234d35c2ab66576b25'
 
   # Code is not reloaded between requests
   config.cache_classes = true
