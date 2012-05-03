@@ -1,26 +1,26 @@
 class Geochat.Routers.ChannelsRouter extends Backbone.Router
   initialize: (options) ->
-    do window.deferred.init
+    do gc.dfd.init
     @channels = new Geochat.Collections.ChannelsCollection()
     $.get '/channels.json', (data)=>
       @channels.reset data
-      console.log('loaded')
-      do window.deferred.resolve
+      gc.log('Channels Router initialized')
+      do gc.dfd.resolve
 
   routes:
     "new"      : "newChannel"
     "index"    : "index"
     ":id/edit" : "edit"
     ":id"      : "show"
-    ".*"        : "index"
+    ".*"       : "index"
 
   newChannel: ->
-    window.dfd.done =>
+    gc.dfd.done =>
       @view = new Geochat.Views.Channels.NewView(collection: @channels)
       $("#main").html(@view.render().el)
 
   index: ->
-    window.dfd.done =>
+    gc.dfd.done =>
       if window.trackPosition
         clearInterval(window.trackPosition)
 
@@ -29,15 +29,15 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
       $("#main").html(@view.render().el)
 
   show: (id) ->
-    window.dfd.done =>
+    gc.dfd.done =>
       channel = @channels.get(id)
-      console.log(channel)
+      gc.log("channel #{id}", channel)
       $('.channel-name').text('channel: ' + channel.get('name'))
       @view = new Geochat.Views.Channels.ShowView(model: channel)
       $("#main").html(@view.render().el)
 
   edit: (id) ->
-    window.dfd.done =>
+    gc.dfd.done =>
       channel = @channels.get(id)
 
       @view = new Geochat.Views.Channels.EditView(model: channel)

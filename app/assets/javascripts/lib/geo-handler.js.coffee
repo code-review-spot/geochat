@@ -1,6 +1,7 @@
 window.geo =
   map: null
   markers: []
+  position: null
 
   geocoder: new google.maps.Geocoder()
   location: new google.maps.LatLng(39.102431, -94.583698)
@@ -48,24 +49,21 @@ window.geo =
     if geo.location and geo.position
       geo.center(geo.location, 14)
     else
-      console.log('warming up tracker')
+      gc.log('warming up tracker')
 
     if navigator.geolocation
       window.trackPosition = setInterval ->
-        console.log('tracking')
         navigator.geolocation.getCurrentPosition (position) ->
           position =
             x: position.coords.latitude
             y: position.coords.longitude
           if geo.position
             if position.x is geo.position.x and position.y is geo.position.y
+              gc.log('tracking: no change')
               return
-          console.log(geo.position)
-          console.log('position',position.x, position.y)
+          gc.log('tracking: new position', position.x, position.y)
           geo.position = position
           latLng = new google.maps.LatLng(position.x, position.y)
           geo.location = latLng
           geo.center(latLng, 14)
       , 5000
-
-console.log('geo ready')

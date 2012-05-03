@@ -1,35 +1,28 @@
 class ChannelsController < ApplicationController
-  # GET /channels
+  respond_to :json
+
   # GET /channels.json
   def index
     @channels = Channel.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @channels }
-    end
+    respond_with @channels
   end
 
-  # GET /channels/1
   # GET /channels/1.json
   def show
     @channel = Channel.find(params[:id])
+    Pusher["channel_#{params[:id]}"].trigger('msg', {
+      :body => "msg sent"
+    })
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @channel }
-    end
+    respond_with @channel
   end
 
-  # GET /channels/new
   # GET /channels/new.json
   def new
     @channel = Channel.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @channel }
-    end
+    respond_with @channel
   end
 
   # GET /channels/1/edit
@@ -75,9 +68,6 @@ class ChannelsController < ApplicationController
     @channel = Channel.find(params[:id])
     @channel.destroy
 
-    respond_to do |format|
-      format.html { redirect_to channels_url }
-      format.json { head :no_content }
-    end
+    respond_with :no_content
   end
 end

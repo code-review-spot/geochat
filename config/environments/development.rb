@@ -1,5 +1,10 @@
 Geochat::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
+  require 'pusher'
+
+  Pusher.app_id = '19784'
+  Pusher.key    = '85748a8a97ea2b188b9b'
+  Pusher.secret = '53521b6161bd6e3435df'
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
