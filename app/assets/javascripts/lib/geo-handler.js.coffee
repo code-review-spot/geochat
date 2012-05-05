@@ -6,14 +6,28 @@ window.geo =
   geocoder: new google.maps.Geocoder()
   location: new google.maps.LatLng(39.102431, -94.583698)
 
-  code: (geoquery, callback) ->
-    geo.geocoder.geocode { 'address': geoquery }, (res, status) ->
-      if status == google.maps.GeocoderStatus.OK
+  init: ()->
+    geo.setOptions()
+    geo.map = new google.maps.Map(document.getElementById('map'), geo.options)
+
+    if geo.location and geo.position
+      geo.center(geo.location, 14)
+    else
+      geo.setPosition { init: true }
+
+    window.trackPosition = setInterval ->
+      do geo.setPosition
+    , 5000
+
+  code: (query, cb) ->
+    geo.geocoder.geocode { 'address': query }, (res, status) ->
+      if status is google.maps.GeocoderStatus.OK
         location = res[0].geometry.location
-        geo.center(location, 13)
-        callback(location) if callback
+        if cb then return cb(location)
+        return location
       else
-        callback(false) if callback
+        if cb then return cb(false)
+        return false
 
   center: (location, zoom) ->
     geo.map.setCenter(location)
@@ -42,28 +56,22 @@ window.geo =
     return geo.options
     # geo.options = $.extend({}, defaults, options)
 
-  init: ()->
-    geo.setOptions()
-    geo.map = new google.maps.Map(document.getElementById('map'), geo.options)
+  setPosition: (options)->
+    navigator.geolocation.getCurrentPosition (position) ->
+      position =
+        x: position.coords.latitude
+        y: position.coords.longitude
 
-    if geo.location and geo.position
-      geo.center(geo.location, 14)
-    else
-      gc.log('warming up tracker')
+      if geo.position and !options
+        if position.x is geo.position.x and position.y is geo.position.y
+          return
 
-    if navigator.geolocation
-      window.trackPosition = setInterval ->
-        navigator.geolocation.getCurrentPosition (position) ->
-          position =
-            x: position.coords.latitude
-            y: position.coords.longitude
-          if geo.position
-            if position.x is geo.position.x and position.y is geo.position.y
-              gc.log('tracking: no change')
-              return
-          gc.log('tracking: new position', position.x, position.y)
-          geo.position = position
-          latLng = new google.maps.LatLng(position.x, position.y)
-          geo.location = latLng
-          geo.center(latLng, 14)
-      , 5000
+      gc.log('tracking: new position', position.x, position.y)
+
+      latLng = new google.maps.LatLng(position.x, position.y)
+      geo.location = latLng
+      geo.position = position
+
+      # move avatar?
+      if options
+        if options.init then geo.center(latLng, 14)

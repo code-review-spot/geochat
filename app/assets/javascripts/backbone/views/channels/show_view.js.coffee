@@ -5,10 +5,11 @@ class Geochat.Views.Channels.ShowView extends Backbone.View
 
   render: ->
     @$el.html(@template(@model.toJSON() ))
-    setTimeout(geo.init, 0)
-    gc.pusher = new Pusher(gc.PUSHER_KEY)
-    gc.channel = gc.pusher.subscribe("channel_#{String(@model.get('id'))}")
-    gc.channel.bind 'msg', (data)->
-      gc.log('pusher msg received', data)
+    if navigator.geolocation
+      setTimeout(geo.init,0)
+      chat.channelName = "#{@model.get('id')}"
+      setTimeout(chat.init,0)
+    else
+      alert('Your browser is too old!')
 
     return this

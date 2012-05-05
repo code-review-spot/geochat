@@ -11,9 +11,6 @@ class ChannelsController < ApplicationController
   # GET /channels/1.json
   def show
     @channel = Channel.find(params[:id])
-    Pusher["channel_#{params[:id]}"].trigger('msg', {
-      :body => "msg sent"
-    })
 
     respond_with @channel
   end

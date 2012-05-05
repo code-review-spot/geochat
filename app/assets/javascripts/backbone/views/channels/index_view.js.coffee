@@ -11,10 +11,10 @@ class Geochat.Views.Channels.IndexView extends Backbone.View
 
   addOne: (channel) =>
     view = new Geochat.Views.Channels.ChannelView({model : channel})
-    @$("tbody").append(view.render().el)
+    @$("#channels").append(view.render().el)
 
   render: =>
-    if gc.pusher? then gc.pusher.disconnect()
+    chat.clear()
     $(@el).html(@template(channels: @options.channels.toJSON() ))
     @addAll()
 

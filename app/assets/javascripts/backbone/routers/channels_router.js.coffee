@@ -24,7 +24,7 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
       if window.trackPosition
         clearInterval(window.trackPosition)
 
-      $('.channel-name').text('')
+      $('.navbar .channel-name').text('')
       @view = new Geochat.Views.Channels.IndexView(channels: @channels)
       $("#main").html(@view.render().el)
 
@@ -32,7 +32,7 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
     gc.dfd.done =>
       channel = @channels.get(id)
       gc.log("channel #{id}", channel)
-      $('.channel-name').text('channel: ' + channel.get('name'))
+      $('.navbar .channel-name').text('channel: ' + channel.get('name'))
       @view = new Geochat.Views.Channels.ShowView(model: channel)
       $("#main").html(@view.render().el)
 
