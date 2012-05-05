@@ -2,6 +2,7 @@ window.geo =
   map: null
   markers: []
   position: null
+  userMarker: null
 
   geocoder: new google.maps.Geocoder()
   location: new google.maps.LatLng(39.102431, -94.583698)
@@ -10,13 +11,13 @@ window.geo =
     geo.setOptions()
     geo.map = new google.maps.Map(document.getElementById('map'), geo.options)
 
-    if geo.location and geo.position
+    if geo.position
       geo.center(geo.location, 14)
     else
-      geo.setPosition { init: true }
+      geo.setUserPosition { init: true }
 
     window.trackPosition = setInterval ->
-      do geo.setPosition
+      do geo.setUserPosition
     , 5000
 
   code: (query, cb) ->
@@ -56,7 +57,7 @@ window.geo =
     return geo.options
     # geo.options = $.extend({}, defaults, options)
 
-  setPosition: (options)->
+  setUserPosition: (options)->
     navigator.geolocation.getCurrentPosition (position) ->
       position =
         x: position.coords.latitude
@@ -72,6 +73,14 @@ window.geo =
       geo.location = latLng
       geo.position = position
 
-      # move avatar?
+      if !geo.userMarker
+        geo.userMarker = new google.maps.Marker {
+          position:  geo.location
+          map:       geo.map
+          draggable: false
+        }
+      else
+        geo.userMarker.setPosition(geo.location)
+
       if options
         if options.init then geo.center(latLng, 14)

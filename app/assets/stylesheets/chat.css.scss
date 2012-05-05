@@ -1,4 +1,7 @@
+@import "compass";
+
 #chat {
+  overflow: hidden;
   position: fixed;
   left: 20px;
   bottom: 20px;
@@ -6,28 +9,27 @@
   z-index: 100;
 
   #messages {
-    background: #222;
-    background: rgba(0,0,0,.7);
-    color: #ccc;
-    height: 180px;
-    overflow: hidden;
+    margin-bottom: 8px;
+    span {
+      @include border-radius(5px);
+      background: rgba(0,0,0,.75);
+      color: #fff;
+      display: inline-block;
+      margin-bottom: 1px;
+      padding: 2px 6px;
+      &:last-child {
+        margin: 0;
+      }
+    }
   }
   #sender {
-    background: #222;
-    background: rgba(0,30,0,.7);
-    margin: 0;
     input {
-      border: 0;
-      border-color: rgba(0,10,0,.8);
+      background: rgba(0,0,0,.85);
+      border-color: rgba(0,0,0,.9);
       color: #fff;
-      background: none;
-      width: 100%;
     }
     button {
-      position: fixed;
-      right: 0;
-      bottom: 0;
-      z-index: 100;
+      opacity: .9;
     }
   }
 }
