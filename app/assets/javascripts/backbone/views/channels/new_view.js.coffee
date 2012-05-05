@@ -2,9 +2,10 @@ Geochat.Views.Channels ||= {}
 
 class Geochat.Views.Channels.NewView extends Backbone.View
   template: JST["backbone/templates/channels/new"]
+  className: 'row-fluid'
 
   events:
-    "submit #new-channel": "save"
+    "#new-channel": "save"
 
   constructor: (options) ->
     super(options)

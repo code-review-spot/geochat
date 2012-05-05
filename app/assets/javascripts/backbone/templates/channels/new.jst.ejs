@@ -1,15 +1,38 @@
-<h1>New channel</h1>
+<div class="span3">
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <li class="nav-header">
+        Channels
+      </li>
+      <li class="active">
+        <a href="#/new">
+          <i class="icon-search"></i>
+          New
+        </a>
+      </li>
+      <li>
+        <a href="#/index">
+          <i class="icon-globe"></i>
+          Recent
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="icon-star"></i>
+          Favorites
+        </a>
+      </li>
+    </ul>
+  </div><!--/.well -->
+</div>
+<div class="span9">
+  <form id="new-channel" name="channel" class="well form-inline">
+    <div class="field">
+      <input type="text" name="name" id="name" value="<%= name %>" placeholder="Name">
+      <button id="submit" class="btn btn-primary"><i class="icon-asterisk icon-white"></i> Create</button>
+    </div>
 
-<form id="new-channel" name="channel">
-  <div class="field">
-    <label for="name"> name:</label>
-    <input type="text" name="name" id="name" value="<%= name %>" >
-  </div>
-
-  <div class="actions">
-    <input type="submit" class="btn btn-primary" value="Create" />
-  </div>
-
-</form>
-
-<a href="#/index"><i class="icon-circle-arrow-left"></i> back</a>
+    <div class="actions">
+    </div>
+  </form>
+</div>
