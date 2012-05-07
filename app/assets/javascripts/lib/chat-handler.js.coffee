@@ -8,7 +8,6 @@ window.chat =
     chat.channel = chat.pusher.subscribe("channel_#{chat.channelName}")
 
     chat.channel.bind 'message', (data)->
-      gc.log('message',data)
       msg = $('<span/>').text("#{data.author}: #{data.body}")
       $('<div/>')
         .append(msg)
@@ -19,10 +18,8 @@ window.chat =
     $('#send').click chat.send
     $('#sender input')
       .on 'keyup', (event)->
-        if event.keyCode is 13
-          chat.send(event)
+        if event.keyCode is 13 then chat.send(event)
       .focus()
-
 
   send: (event)->
     do event.preventDefault

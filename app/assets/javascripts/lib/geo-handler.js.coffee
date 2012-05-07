@@ -11,33 +11,27 @@ window.geo =
     geo.setOptions()
     geo.map = new google.maps.Map(document.getElementById('map'), geo.options)
 
-    if geo.position
-      geo.center(geo.location, 14)
-    else
-      geo.setUserPosition { init: true }
+    if geo.position? then geo.center(geo.location, 14)
+    else geo.setUserPosition { init: true }
 
-    window.trackPosition = setInterval ->
-      do geo.setUserPosition
-    , 5000
+    # window.trackPosition = setInterval ->
+    #   do geo.setUserPosition
+    # , 5000
 
   code: (query, cb) ->
     geo.geocoder.geocode { 'address': query }, (res, status) ->
       if status is google.maps.GeocoderStatus.OK
         location = res[0].geometry.location
-        if cb then return cb(location)
-        return location
+        if cb then return cb(location) else return location
       else
-        if cb then return cb(false)
-        return false
+        if cb then return cb(false) else return false
 
   center: (location, zoom) ->
     geo.map.setCenter(location)
     geo.map.setZoom(zoom) if zoom
 
   clear: ->
-    if geo.markers
-      for i in geo.markers
-        i.setMap(null)
+    if geo.markers? then marker.setMap(null) for marker in geo.markers
 
   setOptions: ()->
     defaults =
@@ -58,7 +52,10 @@ window.geo =
     # geo.options = $.extend({}, defaults, options)
 
   setUserPosition: (options)->
-    navigator.geolocation.getCurrentPosition (position) ->
+    gc.log('attempting to get user position')
+
+    onSuccess = (position)->
+      gc.log('got position', position)
       position =
         x: position.coords.latitude
         y: position.coords.longitude
@@ -74,13 +71,22 @@ window.geo =
       geo.position = position
 
       if !geo.userMarker
-        geo.userMarker = new google.maps.Marker {
+        geo.userMarker = new google.maps.Marker
           position:  geo.location
           map:       geo.map
           draggable: false
-        }
       else
         geo.userMarker.setPosition(geo.location)
 
       if options
         if options.init then geo.center(latLng, 14)
+
+    onError = (error)->
+      gc.log(error)
+
+    apiOptions=
+      maximumAge: 10000
+      timeout: 5000
+      enableHighAccuracy: true
+
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, apiOptions)
