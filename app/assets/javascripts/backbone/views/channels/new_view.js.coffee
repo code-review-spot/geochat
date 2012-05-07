@@ -5,34 +5,33 @@ class Geochat.Views.Channels.NewView extends Backbone.View
   className: 'row-fluid'
 
   events:
-    "#new-channel": "save"
+    "submit form" : "save"
 
-  constructor: (options) ->
+  constructor: (options)->
     super(options)
     @model = new @collection.model()
 
-    @model.bind("change:errors", () =>
-      this.render()
-    )
+    @model.bind "change:errors", => @render()
 
-  save: (e) ->
+  save: (e)->
     e.preventDefault()
     e.stopPropagation()
 
+    if !@$('input').val() then return false
+
     @model.unset("errors")
 
-    @collection.create(@model.toJSON(),
-      success: (channel) =>
+    @collection.create @model.toJSON(),
+      success: (channel)=>
         @model = channel
-        window.location.hash = "/#{@model.id}"
+        window.location.hash = "/channels/#{@model.get('name')}"
 
-      error: (channel, jqXHR) =>
+      error: (channel, jqXHR)=>
         @model.set({errors: $.parseJSON(jqXHR.responseText)})
-    )
 
   render: ->
-    $(@el).html(@template(@model.toJSON() ))
+    @$el.html @template @model.toJSON()
 
-    this.$("form").backboneLink(@model)
+    @$("form").backboneLink(@model)
 
-    return this
+    return @

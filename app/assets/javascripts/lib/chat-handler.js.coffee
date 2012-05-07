@@ -3,7 +3,7 @@ window.chat =
   channel: null
   channelName: null
 
-  init: ()->
+  init: ->
     chat.pusher = new Pusher(gc.PUSHER_KEY)
     chat.channel = chat.pusher.subscribe("channel_#{chat.channelName}")
 
@@ -22,7 +22,7 @@ window.chat =
       .focus()
 
   send: (event)->
-    do event.preventDefault
+    event.preventDefault()
     input = $('#sender input')
     body = input.val()
 
@@ -33,10 +33,10 @@ window.chat =
       author: gc.USERNAME
       body: body
       channel: chat.channelName
-    , ()->
+    , ->
       input.focus()
 
-  clear: ()->
+  clear: ->
     if chat.pusher? then chat.pusher.disconnect()
     chat.channel = null
     chat.channelName = null

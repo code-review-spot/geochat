@@ -17,7 +17,7 @@ window.gc ?= {}
   @param [arguments] Any number of things you want to log or warn.
 ###
 _(['log', 'warn']).each (method)->
-  gc[method] = ()->
+  gc[method] = ->
     gc[method].history ?= []
     gc[method].history.push(arguments)
     if window.console
@@ -31,12 +31,12 @@ _(['log', 'warn']).each (method)->
 ###
 gc.dfd =
   initialized: false
-  init: ()->
+  init: ->
     gc.deferred ?= new $.Deferred()
     gc.dfd.initialized = true
     return gc.dfd
   done: (fn)->
     gc.deferred.done(fn)
-  resolve: ()->
+  resolve: ->
     if gc.dfd.initialized then gc.deferred.resolve()
     return gc.dfd

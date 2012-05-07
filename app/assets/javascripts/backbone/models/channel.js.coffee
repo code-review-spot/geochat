@@ -4,6 +4,10 @@ class Geochat.Models.Channel extends Backbone.Model
   defaults:
     name: null
 
+  validation:
+    name:
+      required: true
+
 class Geochat.Collections.ChannelsCollection extends Backbone.Collection
   model: Geochat.Models.Channel
   url: '/channels'

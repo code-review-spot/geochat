@@ -8,12 +8,13 @@ class Geochat.Views.Channels.ChannelView extends Backbone.View
 
   tagName: "tr"
 
-  destroy: () ->
+  destroy: ->
     @model.destroy()
-    this.remove()
+    @remove()
 
     return false
 
   render: ->
-    $(@el).html(@template(@model.toJSON() ))
-    return this
+    $(@el).html @template @model.toJSON()
+
+    return @

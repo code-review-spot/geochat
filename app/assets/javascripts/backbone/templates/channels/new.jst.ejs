@@ -4,22 +4,16 @@
       <li class="nav-header">
         Channels
       </li>
+      <li>
+        <a href="#/">
+          <i class="icon-globe"></i>
+          Index
+        </a>
+      </li>
       <li class="active">
         <a href="#/new">
-          <i class="icon-search"></i>
+          <i class="icon-asterisk"></i>
           New
-        </a>
-      </li>
-      <li>
-        <a href="#/index">
-          <i class="icon-globe"></i>
-          Recent
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="icon-star"></i>
-          Favorites
         </a>
       </li>
     </ul>
@@ -29,10 +23,7 @@
   <form id="new-channel" name="channel" class="well form-inline">
     <div class="field">
       <input type="text" name="name" id="name" value="<%= name %>" placeholder="Name">
-      <button id="submit" class="btn btn-primary"><i class="icon-asterisk icon-white"></i> Create</button>
-    </div>
-
-    <div class="actions">
+      <button class="btn btn-primary" type="submit"><i class="icon-asterisk icon-white"></i> Create</button>
     </div>
   </form>
 </div>

@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require underscore
-//= require_tree ./lib/.
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
+//= require_tree ./lib/.
 //= require backbone/geochat
 //= require_tree .

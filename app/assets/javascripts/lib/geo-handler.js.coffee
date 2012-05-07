@@ -7,33 +7,32 @@ window.geo =
   geocoder: new google.maps.Geocoder()
   location: new google.maps.LatLng(39.102431, -94.583698)
 
-  init: ()->
+  init: ->
     geo.setOptions()
     geo.map = new google.maps.Map(document.getElementById('map'), geo.options)
 
-    if geo.position? then geo.center(geo.location, 14)
-    else geo.setUserPosition { init: true }
+    geo.setUserPosition { init: true }
 
     # window.trackPosition = setInterval ->
     #   do geo.setUserPosition
     # , 5000
 
-  code: (query, cb) ->
-    geo.geocoder.geocode { 'address': query }, (res, status) ->
+  code: (query, cb)->
+    geo.geocoder.geocode { 'address': query }, (res, status)->
       if status is google.maps.GeocoderStatus.OK
         location = res[0].geometry.location
         if cb then return cb(location) else return location
       else
         if cb then return cb(false) else return false
 
-  center: (location, zoom) ->
+  center: (location, zoom)->
     geo.map.setCenter(location)
     geo.map.setZoom(zoom) if zoom
 
   clear: ->
     if geo.markers? then marker.setMap(null) for marker in geo.markers
 
-  setOptions: ()->
+  setOptions: ->
     defaults =
       zoom:               4
       mapTypeId:          google.maps.MapTypeId.ROADMAP
@@ -70,16 +69,17 @@ window.geo =
       geo.location = latLng
       geo.position = position
 
-      if !geo.userMarker
-        geo.userMarker = new google.maps.Marker
-          position:  geo.location
-          map:       geo.map
-          draggable: false
-      else
-        geo.userMarker.setPosition(geo.location)
-
       if options
-        if options.init then geo.center(latLng, 14)
+        if options.init
+          geo.userMarker = new google.maps.Marker
+            position:  geo.location
+            map:       geo.map
+            draggable: false
+
+          geo.center(latLng, 14)
+          return
+
+      geo.userMarker.setPosition(geo.location)
 
     onError = (error)->
       gc.log(error)
