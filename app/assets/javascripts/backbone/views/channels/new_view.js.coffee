@@ -7,7 +7,7 @@ class Geochat.Views.Channels.NewView extends Backbone.View
 
   events:
     "submit #new-channel"      : "save"
-    "keyup #new-channel input" : "filterInput"
+    # "keyup #new-channel input" : "filterInput"
 
   constructor: (options)->
     super(options)

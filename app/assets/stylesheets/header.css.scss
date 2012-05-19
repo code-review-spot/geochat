@@ -10,11 +10,20 @@ body {
 
 .navbar {
   height: 40px;
+  z-index: 999;
+
+  .divider-vertical {
+    margin: 0;
+    background-color: #06a;
+    background-color: rgba(0,80,160,.6);
+    border-right: 1px solid #2ad;
+    border-right: 1px solid rgba(60,180,240,.6);
+  }
 
   p.channel-name {
     display: block;
     float: left;
-    padding: 8px 20px 12px 0;
+    padding: 8px 20px 12px;
     font-size: 20px;
     font-weight: bold;
     line-height: 1;
@@ -62,5 +71,11 @@ $gradient-bottom: #06a;
       text-decoration: none;
       background-color: #06a;
     }
+  }
+}
+
+@media (max-width: 979px) {
+  .navbar {
+    position: relative;
   }
 }

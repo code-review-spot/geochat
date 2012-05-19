@@ -1,13 +1,4 @@
 class Geochat.Routers.ChannelsRouter extends Backbone.Router
-  # constructor: ->
-  #   super()
-  #   hash = window.location.hash.replace '#/', ''
-  #   if hash
-  #     for k, v of @routes
-  #       gc.log(k,v,hash)
-  #       if k is hash then return # doesn't work with :id type routes yet
-  #     @show404Error()
-
   initialize: (options)->
     do gc.dfd.init
 
@@ -23,6 +14,7 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
     "channels/:name"         : "show"
     "channels/:name/:action" : "show"
     ".*"                     : "index"
+    "*req"                   : "missing"
 
   newChannel: ->
     gc.dfd.done =>
@@ -47,18 +39,16 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
       channel = @channels.where(name: name)[0]
 
       renderView = =>
-        gc.log(!@view)
-        if !@view
+        if !@view or (@view and !@view.nav)
           $navbar = $('.navbar')
-          $name = $navbar.find('.channel-name')
-          $name.text("#{name}")
+          $navbar.find('.channel-name').text("#{name}")
           $navbar.find('.channel').remove()
 
           @view = new Geochat.Views.Channels.ShowView
             model: channel
 
           $("#main").html(@view.render().el)
-          $name.after(@view.nav.render().el)
+          $navbar.find('.nav-collapse').prepend(@view.nav.render().el)
 
         switch action
           when "messages" then do @view.nav.showMessages
@@ -77,7 +67,10 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
 
             do renderView
 
-  show404Error: ->
+  missing: (request)->
     gc.dfd.done =>
-      gc.log("that doesn't exist!")
+      @view = new Geochat.Views.MissingView
+        request: request
+
+      $("#main").html(@view.render().el)
 
