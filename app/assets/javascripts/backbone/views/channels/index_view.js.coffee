@@ -17,7 +17,7 @@ class Geochat.Views.Channels.IndexView extends Backbone.View
     @$("#channels tbody").append(view.render().el)
 
   render: =>
-    chat.clear()
+    chat.disconnect()
 
     $(@el).html @template
       channels: @options.channels.toJSON()

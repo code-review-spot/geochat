@@ -2,10 +2,12 @@ Geochat.Views.Channels ||= {}
 
 class Geochat.Views.Channels.NewView extends Backbone.View
   template: JST["backbone/templates/channels/new"]
+
   className: 'row-fluid'
 
   events:
-    "submit form" : "save"
+    "submit #new-channel"      : "save"
+    "keyup #new-channel input" : "filterInput"
 
   constructor: (options)->
     super(options)
@@ -28,6 +30,15 @@ class Geochat.Views.Channels.NewView extends Backbone.View
 
       error: (channel, jqXHR)=>
         @model.set({errors: $.parseJSON(jqXHR.responseText)})
+
+  filterInput: (e)->
+    patt = /^[A-Za-z0-9_]$/gi
+    $input = @$el.find('input')
+    text = String $input.val()
+    gc.log(patt.test)
+    # text = text.toLowerCase()
+    text = text.replace(/[^a-zA-Z0-9s\.]+/gi,"")
+    $input.val(text)
 
   render: ->
     @$el.html @template @model.toJSON()

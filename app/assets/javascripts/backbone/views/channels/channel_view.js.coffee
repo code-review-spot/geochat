@@ -15,6 +15,5 @@ class Geochat.Views.Channels.ChannelView extends Backbone.View
     return false
 
   render: ->
-    $(@el).html @template @model.toJSON()
-
+    @$el.html @template @model.toJSON()
     return @

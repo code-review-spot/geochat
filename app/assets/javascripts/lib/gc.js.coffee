@@ -20,11 +20,12 @@ _(['log', 'warn']).each (method)->
   gc[method] = ->
     gc[method].history ?= []
     gc[method].history.push(arguments)
-    if window.console
+    if gc.DEBUG and window.console
       window.console[method](Array.prototype.slice.call(arguments))
 
 ###
   Wrapper for jQuery's deferred object.
+
   init(): Handles initialization (ensures it will only happen once)
   done(fn): Passes function to be deferred
   resolve(): Resolves object and calls deferred functions sequentially
@@ -40,3 +41,8 @@ gc.dfd =
   resolve: ->
     if gc.dfd.initialized then gc.deferred.resolve()
     return gc.dfd
+
+###
+  Debug bool constant
+###
+gc.DEBUG = true

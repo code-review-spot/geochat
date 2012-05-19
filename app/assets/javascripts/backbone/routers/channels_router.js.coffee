@@ -8,7 +8,7 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
   #       if k is hash then return # doesn't work with :id type routes yet
   #     @show404Error()
 
-  initialize: (options) ->
+  initialize: (options)->
     do gc.dfd.init
 
     @channels = new Geochat.Collections.ChannelsCollection()
@@ -18,10 +18,11 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
       do gc.dfd.resolve
 
   routes:
-    "new"            : "newChannel"
-    "index"          : "index"
-    "channels/:name" : "show"
-    ".*"             : "index"
+    "new"                    : "newChannel"
+    "index"                  : "index"
+    "channels/:name"         : "show"
+    "channels/:name/:action" : "show"
+    ".*"                     : "index"
 
   newChannel: ->
     gc.dfd.done =>
@@ -34,23 +35,35 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
     gc.dfd.done =>
       if window.trackPosition? then clearInterval(window.trackPosition)
       if !!$('.navbar .channel-name').text() then $('.navbar .channel-name').text('')
+      if @view and @view.nav then @view.nav.$el.remove() && delete @view.nav
 
       @view = new Geochat.Views.Channels.IndexView
         channels: @channels
 
       $("#main").html(@view.render().el)
 
-  show: (name) ->
+  show: (name, action)->
     gc.dfd.done =>
       channel = @channels.where(name: name)[0]
 
       renderView = =>
-        $('.navbar .channel-name').text("channel: #{name}")
+        gc.log(!@view)
+        if !@view
+          $navbar = $('.navbar')
+          $name = $navbar.find('.channel-name')
+          $name.text("#{name}")
+          $navbar.find('.channel').remove()
 
-        @view = new Geochat.Views.Channels.ShowView
-          model: channel
+          @view = new Geochat.Views.Channels.ShowView
+            model: channel
 
-        $("#main").html(@view.render().el)
+          $("#main").html(@view.render().el)
+          $name.after(@view.nav.render().el)
+
+        switch action
+          when "messages" then do @view.nav.showMessages
+          when "members" then do @view.nav.showMembers
+          else do @view.nav.showMap
 
       if !!channel then do renderView
       else

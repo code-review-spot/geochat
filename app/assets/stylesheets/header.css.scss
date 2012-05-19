@@ -10,6 +10,16 @@ body {
 
 .navbar {
   height: 40px;
+
+  p.channel-name {
+    display: block;
+    float: left;
+    padding: 8px 20px 12px 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+  }
+
   .session {
     .avatar {
       border-radius: 4px;
@@ -29,7 +39,7 @@ $gradient-bottom: #06a;
 
 .navbar-inner {
   color: #fff;
-  background-color: #b2b2b2;
+  background-color: #3ae;
   background-image: -moz-linear-gradient(top, $gradient-top, $gradient-bottom);
   background-image: -ms-linear-gradient(top, $gradient-top, $gradient-bottom);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gradient-top), to($gradient-bottom));
@@ -44,5 +54,13 @@ $gradient-bottom: #06a;
 
   .brand, .nav > li > a {
     color: #fff;
+  }
+
+  .nav.channel li.active {
+    &.active > a, &.active > a:hover {
+      color: white;
+      text-decoration: none;
+      background-color: #06a;
+    }
   }
 }

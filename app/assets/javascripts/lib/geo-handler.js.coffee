@@ -9,6 +9,7 @@ window.geo =
 
   init: ->
     geo.setOptions()
+
     geo.map = new google.maps.Map(document.getElementById('map'), geo.options)
 
     geo.setUserPosition { init: true }
@@ -51,19 +52,17 @@ window.geo =
     # geo.options = $.extend({}, defaults, options)
 
   setUserPosition: (options)->
-    gc.log('attempting to get user position')
 
     onSuccess = (position)->
-      gc.log('got position', position)
       position =
         x: position.coords.latitude
         y: position.coords.longitude
 
+      gc.log('position:new', position.x, position.y)
+
       if geo.position and !options
         if position.x is geo.position.x and position.y is geo.position.y
           return
-
-      gc.log('tracking: new position', position.x, position.y)
 
       latLng = new google.maps.LatLng(position.x, position.y)
       geo.location = latLng
@@ -80,6 +79,7 @@ window.geo =
           return
 
       geo.userMarker.setPosition(geo.location)
+      gc.log('marker:update')
 
     onError = (error)->
       gc.log(error)
