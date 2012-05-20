@@ -35,19 +35,36 @@ window.chat =
       .focus()
 
   addMember: (member)->
-    $members = $('#members')
+    $members = $('#members').find('.content')
     gc.log('add:member', member)
+
     # maybe make a view
-    member = "<img src=\"#{member.info.image}\"> <span>#{member.info.nickname}</span>"
-    $('<div/>')
-      .append(member)
-      .appendTo('#members')
+    member = """
+      <a href="http://twitter.com/#{member.info.nickname}" target="_blank">
+        <img src="#{member.info.image}">
+        <span class="name">#{member.info.nickname}</span>
+      </a>
+    """
+
+    $('<li/>')
+      .html(member)
+      .appendTo($members)
 
   addMessage: (message)->
-    msg = $('<span/>').text("#{message.nickname}: #{message.text}")
-    $('<div/>')
-      .append(msg)
-      .appendTo('#messages .content')
+    $messages = $('#messages').find('.content')
+
+    if $messages.hasClass('empty')
+      $messages
+        .empty()
+        .removeClass('empty')
+
+    html  = "<span class=\"name\">#{message.nickname}:</span>"
+    text = " #{message.text}"
+
+    $('<li/>')
+      .text(text)
+      .prepend(html)
+      .appendTo($messages).hide().fadeIn('fast')
 
   sendMessage: (event)->
     event.preventDefault()

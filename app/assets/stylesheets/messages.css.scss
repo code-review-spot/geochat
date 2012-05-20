@@ -1,0 +1,43 @@
+#messages {
+  ul.content {
+    margin: 0;
+    padding: 0;
+
+    li {
+      background: rgba(255,255,255,.9);
+      color: #333;
+      display: block;
+      border-bottom: 1px solid #aaa;
+      padding: 10px 20px;
+
+      span.name {
+        color: #06a;
+        font-weight: bold;
+      }
+    }
+
+    &.empty {
+      li {
+        background: rgba(255,255,255,.5);
+        color: #333;
+      }
+    }
+  }
+}
+
+#sender {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  input#text {
+    background: rgba(0,30,60,.85);
+    border-color: rgba(0,50,100,.9);
+    color: #fff;
+    margin-left: 2%;
+    width: 74%;
+  }
+  button#send {
+    width: 20%;
+  }
+}

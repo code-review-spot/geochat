@@ -15,36 +15,47 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
     @$map = $('#map')
     @$messages = $('#messages')
     @$members = $('#members')
+    @$nav = $('.nav-collapse')
+
+    @$nav.collapse
+      toggle: false
     
     @$el.html @template @model.toJSON()
     return @
 
-  # these need DRYing
   showMap: (event)->
-    if event? then event.preventDefault()
-
     window.location.hash = "/channels/#{@model.get('name')}"
-    @$members.hide()
-    @$messages.hide()
-    @$map.show()
+
+    @$members.css('z-index','1')
+    @$messages.css('z-index','1')
+
+    @$map.css('z-index','10')
+
     @$el.find('li').removeClass('active')
     @$el.find('.map').addClass('active')
-  showMessages: (event)->
-    if event? then event.preventDefault()
+    @$nav.collapse('hide')
 
+  showMessages: (event)->
     window.location.hash = "/channels/#{@model.get('name')}/messages"
-    @$map.hide()
-    @$members.hide()
-    @$messages.show()
+
+    @$map.css('z-index','1')
+    @$members.css('z-index','1')
+
+    @$messages.css('z-index','10')
+
     @$el.find('li').removeClass('active')
     @$el.find('.messages').addClass('active')
-  showMembers: (event)->
-    if event? then event.preventDefault()
+    @$nav.collapse('hide')
 
+  showMembers: (event)->
     window.location.hash = "/channels/#{@model.get('name')}/members"
-    @$map.hide()
-    @$messages.hide()
-    @$members.show()
+
+    @$map.css('z-index','1')
+    @$messages.css('z-index','1')
+
+    @$members.css('z-index','10')
+
     @$el.find('li').removeClass('active')
     @$el.find('.members').addClass('active')
+    @$nav.collapse('hide')
 

@@ -26,7 +26,7 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
   index: ->
     gc.dfd.done =>
       if window.trackPosition? then clearInterval(window.trackPosition)
-      if !!$('.navbar .channel-name').text() then $('.navbar .channel-name').text('')
+      if !!$('.navbar .channel-name').text() then $('.navbar .channel-name').text('Home')
       if @view and @view.nav then @view.nav.$el.remove() && delete @view.nav
 
       @view = new Geochat.Views.Channels.IndexView
@@ -62,7 +62,7 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
             channel = @channels.where(name: name)[0]
 
             if !channel
-              gc.log("channel doesn't exist")
+              do @missing
               return false
 
             do renderView

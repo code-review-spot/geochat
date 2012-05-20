@@ -70,10 +70,25 @@ window.geo =
 
       if options
         if options.init
+          icon = new google.maps.MarkerImage(
+            "#{gc.USER_IMAGE}",
+            new google.maps.Size(50,50),
+            new google.maps.Point(0,0),
+            new google.maps.Point(0,25)
+          )
+          shadow = new google.maps.MarkerImage(
+            'http://www.kith-kin.co.uk/assets/blog/black_pixel.gif',
+            new google.maps.Size(52,52),
+            new google.maps.Point(0,0),
+            new google.maps.Point(2,27)
+          )
+
           geo.userMarker = new google.maps.Marker
             position:  geo.location
             map:       geo.map
             draggable: false
+            icon:      icon
+            shadow:    shadow
 
           geo.center(latLng, 14)
           return
