@@ -1,25 +1,20 @@
 #members {
   ul.content {
-    margin: 0;
-    padding: 0;
+    li {
+      a {
+        color: #333;
+        text-decoration: none;
 
-    li a {
-      background: rgba(255,255,255,.9);
-      color: #333;
-      display: block;
-      border-bottom: 1px solid #aaa;
-      padding: 10px 20px;
-      text-decoration: none;
+        img {
+          height: 32px;
+          width: 32px;
+          margin-right: 5px;
+        }
 
-      img {
-        height: 32px;
-        width: 32px;
-        margin-right: 5px;
-      }
-
-      span.name {
-        color: #06a;
-        font-weight: bold;
+        span.name {
+          color: #06a;
+          font-weight: bold;
+        }
       }
 
       &:hover {

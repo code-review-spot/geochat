@@ -26,36 +26,36 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
   showMap: (event)->
     window.location.hash = "/channels/#{@model.get('name')}"
 
-    @$members.css('z-index','1')
-    @$messages.css('z-index','1')
-
-    @$map.css('z-index','10')
+    @$members.hide()
+    @$messages.hide()
 
     @$el.find('li').removeClass('active')
     @$el.find('.map').addClass('active')
+
+    # collapse doesn't hide on click in mobile layout
     @$nav.collapse('hide')
 
   showMessages: (event)->
     window.location.hash = "/channels/#{@model.get('name')}/messages"
 
-    @$map.css('z-index','1')
-    @$members.css('z-index','1')
-
-    @$messages.css('z-index','10')
+    @$members.hide()
+    @$messages.show()
 
     @$el.find('li').removeClass('active')
     @$el.find('.messages').addClass('active')
+
+    # collapse doesn't hide on click in mobile layout
     @$nav.collapse('hide')
 
   showMembers: (event)->
     window.location.hash = "/channels/#{@model.get('name')}/members"
 
-    @$map.css('z-index','1')
-    @$messages.css('z-index','1')
-
-    @$members.css('z-index','10')
+    @$messages.hide()
+    @$members.show()
 
     @$el.find('li').removeClass('active')
     @$el.find('.members').addClass('active')
+
+    # collapse doesn't hide on click in mobile layout
     @$nav.collapse('hide')
 

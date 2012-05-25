@@ -5,50 +5,64 @@ window.chat =
 
   connect: ->
     chat.pusher = new Pusher(gc.PUSHER_KEY)
-    chat.channel = chat.pusher.subscribe("presence-#{chat.channelName}")
+    chat.channel = channel = chat.pusher.subscribe("presence-#{chat.channelName}")
 
     # initial presence check
-    chat.channel.bind 'pusher:subscription_succeeded', (members)->
+    channel.bind 'pusher:subscription_succeeded', (members)->
       $('#presence').empty()
       members.each(chat.addMember)
       gc.log("Count", members.count)
 
+      # initialize map
+      setTimeout(geo.init,0)
+
     # when member leaves
-    chat.channel.bind 'pusher:member_removed', (member)->
-      $('#presence-' + member.id).remove()
+    channel.bind 'pusher:member_removed', (member)->
+      chat.removeMember(member)
       gc.log("Count", channel.members.count)
 
     # when member joins
-    chat.channel.bind 'pusher:member_added', (member)->
+    channel.bind 'pusher:member_added', (member)->
       chat.addMember(member)
       gc.log("Count", channel.members.count)
 
     # receive message
-    chat.channel.bind 'message', (message)->
+    channel.bind 'message', (message)->
       chat.addMessage(message)
 
     # send message
-    $('#send').click chat.sendMessage
-    $('#sender input')
+    $('#sender textarea')
       .on 'keyup', (event)->
-        if event.keyCode is 13 then chat.sendMessage(event)
+        if event.keyCode is 13
+          event.preventDefault()
+          do chat.sendMessage
       .focus()
+
+    # receive location
+    channel.bind 'location', (data)->
+      gc.log('position:received')
+      geo.setPosition(data)
 
   addMember: (member)->
     $members = $('#members').find('.content')
-    gc.log('add:member', member)
+    gc.log('add:member', member, member.id)
 
-    # maybe make a view
-    member = """
+    # would be best to convert members and messages to models, collections and views
+    html = """
       <a href="http://twitter.com/#{member.info.nickname}" target="_blank">
         <img src="#{member.info.image}">
         <span class="name">#{member.info.nickname}</span>
       </a>
     """
 
-    $('<li/>')
-      .html(member)
+    $("<li id=\"presence-#{member.id}\" />")
+      .html(html)
       .appendTo($members)
+
+  removeMember: (member)->
+    $("#presence-#{member.id}").remove()
+    geo.markers[member.info.nickname].setMap(null)
+    delete geo.markers[member.info.nickname]
 
   addMessage: (message)->
     $messages = $('#messages').find('.content')
@@ -64,23 +78,30 @@ window.chat =
     $('<li/>')
       .text(text)
       .prepend(html)
-      .appendTo($messages).hide().fadeIn('fast')
+      .prependTo($messages)
+      .hide()
+      .fadeIn('fast')
 
-  sendMessage: (event)->
-    event.preventDefault()
-    input = $('#sender input')
+  sendMessage: ->
+    input = $('#sender textarea')
     text = input.val()
 
     if !text then return false
     input.val('')
 
     $.post '/messages',
-      text: text
       channel: chat.channelName
+      text: text
     , ->
       input.focus()
+
+  sendPosition: (position)->
+    $.post '/locations',
+      channel: chat.channelName
+      position: position
 
   disconnect: ->
     if chat.pusher? then chat.pusher.disconnect()
     chat.channel = null
     chat.channelName = null
+    do geo.reset

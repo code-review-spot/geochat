@@ -1,22 +1,26 @@
 window.geo =
   map: null
-  markers: []
+  markers: {}
   position: null
-  userMarker: null
 
   geocoder: new google.maps.Geocoder()
-  location: new google.maps.LatLng(39.102431, -94.583698)
+  latLng: new google.maps.LatLng(39.102431, -94.583698)
 
   init: ->
     geo.setOptions()
 
     geo.map = new google.maps.Map(document.getElementById('map'), geo.options)
 
-    geo.setUserPosition { init: true }
+    geo.getUserPosition { init: true }
 
     # window.trackPosition = setInterval ->
     #   do geo.setUserPosition
     # , 5000
+
+  reset: ->
+    geo.map      = null
+    geo.markers  = {}
+    geo.position = null
 
   code: (query, cb)->
     geo.geocoder.geocode { 'address': query }, (res, status)->
@@ -35,23 +39,63 @@ window.geo =
 
   setOptions: ->
     defaults =
-      zoom:               4
+      center:             geo.latLng
       mapTypeId:          google.maps.MapTypeId.ROADMAP
-      center:             geo.location
-      streetViewControl:  false
-      scaleControl:       false
-      scrollwheel:        true
       mapTypeControl:     false
       overviewMapControl: false
-      zoomControl:        false
-      rotateControl:      false
       panControl:         false
+      rotateControl:      false
+      scaleControl:       false
+      scrollwheel:        true
+      streetViewControl:  false
+      zoom:               4
+      zoomControl:        true
+      zoomControlOptions:
+        position: google.maps.ControlPosition.TOP_RIGHT
 
     geo.options = defaults
     return geo.options
     # geo.options = $.extend({}, defaults, options)
 
-  setUserPosition: (options)->
+  setPosition: (data)->
+    position = data.position
+    user     = data.user
+    marker   = geo.markers[user.nickname]
+    latLng   = new google.maps.LatLng(position.x, position.y)
+    gc.log(data)
+    gc.log(user)
+
+    if marker
+      gc.log("#{user.nickname}:position:update", position.x, position.y)
+      marker.setPosition(latLng)
+      return
+
+    gc.log("#{user.nickname}:position:new", position.x, position.y)
+
+    icon = new google.maps.MarkerImage(
+      "#{user.image}",
+      new google.maps.Size(50,50),
+      new google.maps.Point(0,0),
+      new google.maps.Point(0,25)
+    )
+
+    shadow = new google.maps.MarkerImage(
+      'http://www.kith-kin.co.uk/assets/blog/black_pixel.gif',
+      new google.maps.Size(52,52),
+      new google.maps.Point(0,0),
+      new google.maps.Point(2,27)
+    )
+
+    geo.markers[user.nickname] = new google.maps.Marker
+      position:  latLng
+      map:       geo.map
+      draggable: false
+      icon:      icon
+      shadow:    shadow
+
+    gc.log(geo.markers, geo.markers[user.nickname])
+
+  getUserPosition: (options)->
 
     onSuccess = (position)->
       position =
@@ -60,40 +104,44 @@ window.geo =
 
       gc.log('position:new', position.x, position.y)
 
-      if geo.position and !options
-        if position.x is geo.position.x and position.y is geo.position.y
-          return
+      # if geo.position and !options
+        # if position.x is geo.position.x and position.y is geo.position.y
+          # return
 
-      latLng = new google.maps.LatLng(position.x, position.y)
-      geo.location = latLng
+      geo.latLng   = new google.maps.LatLng(position.x, position.y)
       geo.position = position
 
       if options
         if options.init
-          icon = new google.maps.MarkerImage(
-            "#{gc.USER_IMAGE}",
-            new google.maps.Size(50,50),
-            new google.maps.Point(0,0),
-            new google.maps.Point(0,25)
-          )
-          shadow = new google.maps.MarkerImage(
-            'http://www.kith-kin.co.uk/assets/blog/black_pixel.gif',
-            new google.maps.Size(52,52),
-            new google.maps.Point(0,0),
-            new google.maps.Point(2,27)
-          )
 
-          geo.userMarker = new google.maps.Marker
-            position:  geo.location
-            map:       geo.map
-            draggable: false
-            icon:      icon
-            shadow:    shadow
+          # icon = new google.maps.MarkerImage(
+          #   "#{gc.USER_IMAGE}",
+          #   new google.maps.Size(50,50),
+          #   new google.maps.Point(0,0),
+          #   new google.maps.Point(0,25)
+          # )
 
-          geo.center(latLng, 14)
+          # shadow = new google.maps.MarkerImage(
+          #   'http://www.kith-kin.co.uk/assets/blog/black_pixel.gif',
+          #   new google.maps.Size(52,52),
+          #   new google.maps.Point(0,0),
+          #   new google.maps.Point(2,27)
+          # )
+
+          # geo.userMarker = new google.maps.Marker
+          #   position:  geo.latLng
+          #   map:       geo.map
+          #   draggable: false
+          #   icon:      icon
+          #   shadow:    shadow
+
+          geo.center(geo.latLng, 13)
+          chat.sendPosition(position)
+          gc.log('marker:set')
           return
 
-      geo.userMarker.setPosition(geo.location)
+      # geo.userMarker.setPosition(geo.latLng)
+      chat.sendPosition(position)
       gc.log('marker:update')
 
     onError = (error)->

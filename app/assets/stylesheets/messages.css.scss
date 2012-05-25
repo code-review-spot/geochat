@@ -1,43 +1,32 @@
-#messages {
-  ul.content {
-    margin: 0;
-    padding: 0;
+#sender {
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  padding: 10px 0;
+  margin: 10px;
 
-    li {
-      background: rgba(255,255,255,.9);
-      color: #333;
-      display: block;
-      border-bottom: 1px solid #aaa;
-      padding: 10px 20px;
+  textarea {
+    margin: 0 auto;
+    display: block;
+    height: 18px;
+    resize: vertical;
 
-      span.name {
-        color: #06a;
-        font-weight: bold;
-      }
+    &:hover {
+      border: 1px solid #999;
     }
 
-    &.empty {
-      li {
-        background: rgba(255,255,255,.5);
-        color: #333;
-      }
+    &:focus {
+      border: 1px solid rgba(82, 168, 236, 0.796875);
+      height: 75px;
     }
   }
 }
 
-#sender {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  input#text {
-    background: rgba(0,30,60,.85);
-    border-color: rgba(0,50,100,.9);
-    color: #fff;
-    margin-left: 2%;
-    width: 74%;
-  }
-  button#send {
-    width: 20%;
+@media (max-width: 767px) {
+  #sender {
+    background: none;
+    border: none;
+    padding: 0;
   }
 }

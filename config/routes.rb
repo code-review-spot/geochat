@@ -2,6 +2,7 @@ Geochat::Application.routes.draw do
   resources :channels
 
   resources :messages
+  resources :locations
 
   get "home/index"
 
