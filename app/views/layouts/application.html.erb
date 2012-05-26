@@ -67,6 +67,7 @@
   <% if current_user %>
     gc.USERNAME = '<%= current_user.nickname %>'
     gc.USER_IMAGE = '<%= current_user.image %>'
+    gc.PUSHER_KEY = '<%= Pusher.key %>'
   <% end %>
 </script>
 </body>
