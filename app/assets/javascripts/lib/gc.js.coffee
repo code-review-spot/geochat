@@ -1,8 +1,10 @@
 # GeoChat Utility Library
 # A collection of miscellaneous convenience functions.
+#
 # Dependencies:
 # * jQuery 1.7.2
 # * Underscore 1.3.3
+#
 
 # gc global object literal
 window.gc ?= {}

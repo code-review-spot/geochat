@@ -11,24 +11,18 @@ window.chat =
     channel.bind 'pusher:subscription_succeeded', (members)->
       $('#presence').empty()
       members.each(chat.addMember)
-      gc.log("Count", members.count)
 
       # initialize map
       setTimeout(geo.init,0)
 
     # when member leaves
-    channel.bind 'pusher:member_removed', (member)->
-      chat.removeMember(member)
-      gc.log("Count", channel.members.count)
+    channel.bind 'pusher:member_removed', (member)-> chat.removeMember(member)
 
     # when member joins
-    channel.bind 'pusher:member_added', (member)->
-      chat.addMember(member)
-      gc.log("Count", channel.members.count)
+    channel.bind 'pusher:member_added', (member)-> chat.addMember(member)
 
     # receive message
-    channel.bind 'message', (message)->
-      chat.addMessage(message)
+    channel.bind 'message', (message)-> chat.addMessage(message)
 
     # send message
     $('#sender textarea')
@@ -40,12 +34,10 @@ window.chat =
 
     # receive location
     channel.bind 'location', (data)->
-      gc.log('position:received')
       geo.setPosition(data)
 
   addMember: (member)->
     $members = $('#members').find('.content')
-    gc.log('add:member', member, member.id)
 
     # would be best to convert members and messages to models, collections and views
     html = """
