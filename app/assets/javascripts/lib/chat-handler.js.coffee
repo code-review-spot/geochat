@@ -13,7 +13,7 @@ window.chat =
       members.each(chat.addMember)
 
       # initialize map
-      setTimeout(geo.init,0)
+      do geo.init
 
     # when member leaves
     channel.bind 'pusher:member_removed', (member)-> chat.removeMember(member)
@@ -30,14 +30,13 @@ window.chat =
         if event.keyCode is 13
           event.preventDefault()
           do chat.sendMessage
-      .focus()
 
     # receive location
     channel.bind 'location', (data)->
       geo.setPosition(data)
 
   addMember: (member)->
-    $members = $('#members').find('.content')
+    $info = $('#info').find('.content')
 
     # would be best to convert members and messages to models, collections and views
     html = """
@@ -49,7 +48,7 @@ window.chat =
 
     $("<li id=\"presence-#{member.id}\" />")
       .html(html)
-      .appendTo($members)
+      .appendTo($info)
 
   removeMember: (member)->
     $("#presence-#{member.id}").remove()
@@ -57,10 +56,10 @@ window.chat =
     delete geo.markers[member.info.nickname]
 
   addMessage: (message)->
-    $messages = $('#messages').find('.content')
+    $chat = $('#chat').find('.content')
 
-    if $messages.hasClass('empty')
-      $messages
+    if $chat.hasClass('empty')
+      $chat
         .empty()
         .removeClass('empty')
 
@@ -70,7 +69,7 @@ window.chat =
     $('<li/>')
       .text(text)
       .prepend(html)
-      .prependTo($messages)
+      .prependTo($chat)
       .hide()
       .fadeIn('fast')
 

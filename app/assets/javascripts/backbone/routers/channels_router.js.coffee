@@ -51,9 +51,9 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
           $navbar.find('.nav-collapse').prepend(@view.nav.render().el)
 
         switch action
-          when "messages" then do @view.nav.showMessages
-          when "members" then do @view.nav.showMembers
-          else do @view.nav.showMap
+          when "map" then do @view.nav.showMap
+          when "info" then do @view.nav.showInfo
+          else do @view.nav.showChat
 
       if !!channel then do renderView
       else

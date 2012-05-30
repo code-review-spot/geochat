@@ -18,4 +18,4 @@
 //= require backbone_datalink
 //= require_tree ./lib/.
 //= require backbone/geochat
-//= require_tree .
+//= require_directory .

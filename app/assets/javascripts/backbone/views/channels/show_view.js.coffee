@@ -6,8 +6,8 @@ class Geochat.Views.Channels.ShowView extends Backbone.View
   render: ->
     if navigator.geolocation?
       chat.channelName = "#{@model.get('name')}"
-      setTimeout(chat.connect,0)
       @$el.html @template @model.toJSON()
+      setTimeout(chat.connect,0)
 
       @nav = new Geochat.Views.Channels.ChannelNavView
         model: @model

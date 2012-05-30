@@ -4,18 +4,18 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
   template: JST["backbone/templates/channels/channel_nav"]
 
   events:
-    "click .map"      : "showMap"
-    "click .messages" : "showMessages"
-    "click .members"  : "showMembers"
+    "click .map"  : "showMap"
+    "click .chat" : "showChat"
+    "click .info" : "showInfo"
 
   tagName: "ul"
   className: "nav channel"
 
   render: ->
-    @$map = $('#map')
-    @$messages = $('#messages')
-    @$members = $('#members')
-    @$nav = $('.nav-collapse')
+    @$map  = $('#map')
+    @$chat = $('#chat')
+    @$info = $('#info')
+    @$nav  = $('.nav-collapse')
 
     @$nav.collapse
       toggle: false
@@ -24,10 +24,10 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
     return @
 
   showMap: (event)->
-    window.location.hash = "/channels/#{@model.get('name')}"
+    window.location.hash = "/channels/#{@model.get('name')}/map"
 
-    @$members.hide()
-    @$messages.hide()
+    @$info.hide()
+    @$chat.hide()
 
     @$el.find('li').removeClass('active')
     @$el.find('.map').addClass('active')
@@ -35,26 +35,27 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
     # collapse doesn't hide on click in mobile layout
     @$nav.collapse('hide')
 
-  showMessages: (event)->
-    window.location.hash = "/channels/#{@model.get('name')}/messages"
+  showChat: (event)->
+    window.location.hash = "/channels/#{@model.get('name')}"
 
-    @$members.hide()
-    @$messages.show()
+    @$info.hide()
+    @$chat.show()
 
     @$el.find('li').removeClass('active')
-    @$el.find('.messages').addClass('active')
+    @$el.find('.chat').addClass('active')
 
     # collapse doesn't hide on click in mobile layout
     @$nav.collapse('hide')
+    $('#sender textarea').focus()
 
-  showMembers: (event)->
-    window.location.hash = "/channels/#{@model.get('name')}/members"
+  showInfo: (event)->
+    window.location.hash = "/channels/#{@model.get('name')}/info"
 
-    @$messages.hide()
-    @$members.show()
+    @$chat.hide()
+    @$info.show()
 
     @$el.find('li').removeClass('active')
-    @$el.find('.members').addClass('active')
+    @$el.find('.info').addClass('active')
 
     # collapse doesn't hide on click in mobile layout
     @$nav.collapse('hide')
