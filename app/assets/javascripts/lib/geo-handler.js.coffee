@@ -101,7 +101,7 @@ window.geo =
         if options.init
 
           geo.center(geo.latLng, 13)
-          chat.sendPosition(position)
+          chat.getAllPositions()
           return
 
       chat.sendPosition(position)

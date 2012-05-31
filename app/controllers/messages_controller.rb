@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController
+  before_filter :authenticated?
+  respond_to :json
+
   def create
     data = {
       :nickname => current_user.nickname,

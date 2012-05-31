@@ -13,7 +13,7 @@ window.chat =
       members.each(chat.addMember)
 
       # initialize map
-      do geo.init
+      geo.init()
 
     # when member leaves
     channel.bind 'pusher:member_removed', (member)-> chat.removeMember(member)
@@ -29,11 +29,17 @@ window.chat =
       .on 'keyup', (event)->
         if event.keyCode is 13
           event.preventDefault()
-          do chat.sendMessage
+          chat.sendMessage()
 
     # receive location
     channel.bind 'location', (data)->
+      gc.log('location:received', data)
       geo.setPosition(data)
+
+    # respond to location request
+    channel.bind 'location_request', (data)->
+      gc.log('location:requested')
+      chat.sendPosition(geo.position)
 
   addMember: (member)->
     $info = $('#info').find('.content')
@@ -86,6 +92,9 @@ window.chat =
     , ->
       input.focus()
 
+  getAllPositions: ->
+    $.get "/locations/#{chat.channelName}"
+
   sendPosition: (position)->
     $.post '/locations',
       channel: chat.channelName
@@ -95,4 +104,4 @@ window.chat =
     if chat.pusher? then chat.pusher.disconnect()
     chat.channel = null
     chat.channelName = null
-    do geo.reset
+    geo.reset()
