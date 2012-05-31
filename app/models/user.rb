@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   def self.find_or_create_from_auth_hash(auth_hash)
     user = User.find_by_uid(auth_hash["uid"])
     if user.present?
+      user.nickname = auth_hash["info"]["nickname"]
+      user.image = auth_hash["info"]["image"]
+      user.save
       return user
     else
       user = create do |user|
@@ -11,7 +14,6 @@ class User < ActiveRecord::Base
         user.nickname = auth_hash["info"]["nickname"]
         user.image = auth_hash["info"]["image"]
       end
-      puts user.inspect
       return user
     end
   end

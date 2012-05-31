@@ -8,12 +8,6 @@ class ChannelsController < ApplicationController
     respond_with @channels
   end
 
-  def show
-    @channel = Channel.find(params[:id])
-
-    respond_with @channel
-  end
-
   def create
     @channel = Channel.new(params[:channel])
 

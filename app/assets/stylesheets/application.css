@@ -16,22 +16,13 @@
  *= require_tree .
 */
 
-html {
-  background: #fafafa;
-}
-
-body {
-  background-color: transparent;
-}
+html { background: #fafafa; }
+body { background-color: transparent; }
 
 .group:before,
 .group:after {
-    content:"";
-    display:table;
+  content: "";
+  display: table;
 }
-.group:after {
-    clear:both;
-}
-.group {
-    zoom:1; /* For IE 6/7 (trigger hasLayout) */
-}
+.group:after { clear:both; }
+.group { zoom:1; }

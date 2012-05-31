@@ -5,7 +5,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'jquery-rails'
 gem 'rails-backbone', '~> 0.7.2'
-gem "pusher", '~> 0.9.3'
+gem 'pusher', '~> 0.9.3'
 gem 'em-http-request' # Required by trigger_async
 
 # Gems used only for assets and not required

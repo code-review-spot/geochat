@@ -4,9 +4,9 @@ class LocationsController < ApplicationController
   respond_to :json
 
   def show
-    data = ""
+    data = nil
 
-    trigger("presence-#{params[:id]}", 'location_request', data)
+    trigger("presence-#{params[:channel]}", 'location_request', data)
     head :ok
   end
 
