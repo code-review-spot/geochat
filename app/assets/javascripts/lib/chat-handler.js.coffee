@@ -33,12 +33,10 @@ window.chat =
 
     # receive location
     channel.bind 'location', (data)->
-      gc.log('location:received', data)
       geo.setPosition(data)
 
     # respond to location request
     channel.bind 'location_request', (data)->
-      gc.log('location:requested')
       chat.sendPosition(geo.position)
 
   addMember: (member)->
