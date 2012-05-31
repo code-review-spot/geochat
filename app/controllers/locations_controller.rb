@@ -1,14 +1,12 @@
 class LocationsController < ApplicationController
+  include PusherTrigger
   before_filter :authenticated?
   respond_to :json
 
   def show
     data = ""
-    if EM.reactor_running?
-      Pusher["presence-#{params[:id]}"].trigger_async('location_request', data)
-    else
-      Pusher["presence-#{params[:id]}"].trigger('location_request', data)
-    end
+
+    trigger("presence-#{params[:id]}", 'location_request', data)
     head :ok
   end
 
@@ -20,13 +18,8 @@ class LocationsController < ApplicationController
         :image => current_user.image
       }
     }
-    puts data
 
-    if EM.reactor_running?
-      Pusher["presence-#{params[:channel]}"].trigger_async('location', data)
-    else
-      Pusher["presence-#{params[:channel]}"].trigger('location', data)
-    end
+    trigger("presence-#{params[:channel]}", 'location', data)
     head :ok
   end
 end

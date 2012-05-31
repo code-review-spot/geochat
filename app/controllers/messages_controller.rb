@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  include PusherTrigger
   before_filter :authenticated?
   respond_to :json
 
@@ -7,13 +8,8 @@ class MessagesController < ApplicationController
       :nickname => current_user.nickname,
       :text => params[:text]
     }
-    if EM.reactor_running?
-      # Heroku apps run inside eventmachine so we can make API calls to pusher
-      # outside the request-response cycle
-      Pusher["presence-#{params[:channel]}"].trigger_async('message', data)
-    else
-      Pusher["presence-#{params[:channel]}"].trigger('message', data)
-    end
+
+    trigger("presence-#{params[:channel]}", 'message', data)
     head :ok
   end
 end
