@@ -1,16 +1,21 @@
-Geochat.Views.Channels ||= {}
-
+# Channel navigation view.
+#
 class Geochat.Views.Channels.ChannelNavView extends Backbone.View
+  # template
   template: JST["backbone/templates/channels/channel_nav"]
 
+  # attributes
+  tagName: "ul"
+  className: "nav channel"
+
+  # event mappings
   events:
     "click .map"  : "showMap"
     "click .chat" : "showChat"
     "click .info" : "showInfo"
 
-  tagName: "ul"
-  className: "nav channel"
-
+  # Renders the view.
+  #
   render: ->
     @$map  = $('#map')
     @$chat = $('#chat')
@@ -21,8 +26,13 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
       toggle: false
     
     @$el.html @template @model.toJSON()
+
     return @
 
+  # Shows the map. Hides chat and info panes.
+  #
+  # @param event [Object] the DOM event
+  #
   showMap: (event)->
     window.location.hash = "/channels/#{@model.get('name')}/map"
 
@@ -35,6 +45,10 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
     # collapse doesn't hide on click in mobile layout
     @$nav.collapse('hide')
 
+  # Shows the chat pane. Hides the info pane.
+  #
+  # @param event [Object] the DOM event
+  #
   showChat: (event)->
     window.location.hash = "/channels/#{@model.get('name')}"
 
@@ -48,6 +62,10 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
     @$nav.collapse('hide')
     $('#sender textarea').focus()
 
+  # Shows the info pane. Hides the chat pane.
+  #
+  # @param event [Object] the DOM event
+  #
   showInfo: (event)->
     window.location.hash = "/channels/#{@model.get('name')}/info"
 

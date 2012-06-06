@@ -1,19 +1,26 @@
-Geochat.Views.Channels ||= {}
-
+# Channel row view.
+#
 class Geochat.Views.Channels.ChannelView extends Backbone.View
+  # template
   template: JST["backbone/templates/channels/channel"]
 
+  # attributes
+  tagName: "tr"
+
+  # event mappings
   events:
     "click .destroy" : "destroy"
 
-  tagName: "tr"
+  # Renders the view.
+  #
+  render: ->
+    @$el.html @template @model.toJSON()
+    return @
 
+  # Permanently deletes the channel.
+  #
   destroy: ->
     @model.destroy()
     @remove()
 
     return false
-
-  render: ->
-    @$el.html @template @model.toJSON()
-    return @

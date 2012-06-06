@@ -24,17 +24,23 @@
 
 @media (max-width: 767px) {
   #sender {
-    background: none;
-    border: none;
-    padding: 0;
+    textarea {
+      width: 270px;
+    }
   }
 }
 
 @media (max-width: 480px) {
   #sender {
+    border: none;
+    margin: 0;
+    padding: 10px;
+    border-radius: 0px;
+
     textarea {
       height: 18px;
       resize: none;
+      width: 100%;
     }
   }
 }
