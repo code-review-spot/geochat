@@ -41,12 +41,18 @@
     li {
       color: #333;
       display: block;
-      border-bottom: 1px solid #aaa;
+      border-bottom: 1px solid #ddd;
+      border-top: 1px solid #fff;
+      overflow: hidden;
       padding: 10px;
 
       span.name {
         color: #06a;
         font-weight: bold;
+      }
+
+      &:first-child, &.empty:first-child {
+        border-top: none;
       }
 
       &:last-child, &.empty:last-child {

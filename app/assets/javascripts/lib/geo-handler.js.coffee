@@ -1,6 +1,8 @@
 window.geo =
+  bounds: null
   map: null
   markers: {}
+  oms: null
   position: null
 
   geocoder: new google.maps.Geocoder()
@@ -10,6 +12,12 @@ window.geo =
     geo.setOptions()
 
     geo.map = new google.maps.Map(document.getElementById('map'), geo.options)
+    geo.oms = new OverlappingMarkerSpiderfier geo.map,
+      circleFootSeparation: 50
+      circleSpiralSwitchover: Infinity
+      legWeight: 3
+
+    geo.bounds = new google.maps.LatLngBounds()
 
     geo.getUserPosition { init: true }
 
@@ -18,9 +26,12 @@ window.geo =
     # , 5000
 
   reset: ->
+    geo.bounds   = null
     geo.map      = null
     geo.markers  = {}
+    geo.oms      = null
     geo.position = null
+
 
   code: (query, cb)->
     geo.geocoder.geocode { 'address': query }, (res, status)->
@@ -64,28 +75,34 @@ window.geo =
 
     if marker
       marker.setPosition(latLng)
+      geo.bounds.extend(latLng)
       return
 
     icon = new google.maps.MarkerImage(
       "#{user.image}",
       new google.maps.Size(50,50),
       new google.maps.Point(0,0),
-      new google.maps.Point(0,25)
+      new google.maps.Point(12,12),
+      new google.maps.Size(24,24)
     )
 
     shadow = new google.maps.MarkerImage(
       'http://www.kith-kin.co.uk/assets/blog/black_pixel.gif',
-      new google.maps.Size(52,52),
+      new google.maps.Size(26,26),
       new google.maps.Point(0,0),
-      new google.maps.Point(2,27)
+      new google.maps.Point(13,13)
     )
 
-    geo.markers[user.nickname] = new google.maps.Marker
+    geo.markers[user.nickname] = marker = new google.maps.Marker
       position:  latLng
       map:       geo.map
       draggable: false
       icon:      icon
       shadow:    shadow
+
+    geo.oms.addMarker(marker)
+    geo.bounds.extend(latLng)
+    geo.map.fitBounds(geo.bounds)
 
   getUserPosition: (options)->
 
