@@ -15,7 +15,7 @@ window.geo =
     geo.oms = new OverlappingMarkerSpiderfier geo.map,
       circleFootSeparation: 50
       circleSpiralSwitchover: Infinity
-      legWeight: 3
+      legWeight: 2
 
     geo.bounds = new google.maps.LatLngBounds()
 

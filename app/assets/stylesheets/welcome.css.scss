@@ -1,0 +1,44 @@
+body.welcome {
+  padding-top: 20px;
+  h1 {
+    padding-bottom: 5px;
+  }
+  .sign-in {
+    background: transparent url(/assets/twitter_dark.png) 0 0 no-repeat;
+    display: block;
+    height: 24px;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 151px;
+  }
+  section {
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 979px) {
+  body.welcome {
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .welcome {
+    h1 {
+      font-size: 42px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome {
+    .hero-unit {
+      padding: 30px;
+    }
+    h1 {
+      font-size: 32px;
+      line-height: 1;
+      word-wrap: break-word;
+    }
+  }
+}
