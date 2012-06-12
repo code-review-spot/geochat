@@ -11,8 +11,29 @@ body.welcome {
     text-indent: -999em;
     width: 151px;
   }
+  .hero-unit {
+    background: url(/assets/welcome_bg.jpg) right top no-repeat;
+    color: #fff;
+  }
   section {
     padding-top: 40px;
+    h4 {
+      padding: 10px 0;
+    }
+    .row {
+      margin-bottom: 15px;
+    }
+  }
+  footer {
+    border-top: 1px solid #e5e5e5;
+    font-size: 13px;
+    margin-top: 45px;
+    overflow: hidden;
+    padding: 35px 0 36px;
+    p {
+      margin-bottom: 0;
+      color: #777;
+    }
   }
 }
 
