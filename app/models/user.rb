@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :channels
+
   def self.find_or_create_from_auth_hash(auth_hash)
     user = User.find_by_uid(auth_hash["uid"])
     if user.present?

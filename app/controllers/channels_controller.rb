@@ -3,23 +3,23 @@ class ChannelsController < ApplicationController
   respond_to :json
 
   def index
-    @channels = Channel.all
+    @channels = current_user.channels
 
     respond_with @channels
   end
 
   def create
-    @channel = Channel.new(params[:channel])
+    @channel = current_user.channels.build(params[:channel])
 
     if @channel.save
-      respond_with @channel, status: :created, location: @channel
+      respond_with @channel
     else
-      respond_with @channel.errors, status: :unprocessable_entity
+      respond_with @channel.errors
     end
   end
 
   def destroy
-    @channel = Channel.find(params[:id])
+    @channel = current_user.channels.find(params[:id])
     @channel.destroy
 
     respond_with :no_content
