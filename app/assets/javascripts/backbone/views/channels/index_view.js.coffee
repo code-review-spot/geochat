@@ -21,6 +21,8 @@ class Geochat.Views.Channels.IndexView extends Backbone.View
     $(@el).html @template
       channels: @options.channels.toJSON()
 
+    @$channels = @$("#channels")
+
     @addAll()
 
     return @
@@ -33,7 +35,9 @@ class Geochat.Views.Channels.IndexView extends Backbone.View
     view = new Geochat.Views.Channels.ChannelView
       model: channel
 
-    @$("#channels tbody").append(view.render().el)
+    if @$channels.hasClass('empty') then @$channels.empty().removeClass('empty')
+
+    @$channels.append(view.render().el)
 
   # Adds all channels to the index.
   addAll: =>

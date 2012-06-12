@@ -21,10 +21,6 @@ window.geo =
 
     geo.getUserPosition { init: true }
 
-    # window.trackPosition = setInterval ->
-    #   do geo.setUserPosition
-    # , 5000
-
   reset: ->
     geo.bounds   = null
     geo.map      = null
@@ -131,4 +127,4 @@ window.geo =
       timeout: 5000
       enableHighAccuracy: true
 
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, apiOptions)
+    window.trackPosition = navigator.geolocation.watchPosition(onSuccess, onError, apiOptions)

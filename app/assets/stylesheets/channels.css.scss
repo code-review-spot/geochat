@@ -5,7 +5,46 @@
 }
 
 #channels {
-  background: #fff;
+  background: #fcfcfc;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  list-style: none;
+  margin: 15px 0 0;
+  overflow: hidden;
+  padding: 0;
+
+  li.channel {
+    color: #333;
+    display: block;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    overflow: hidden;
+    padding: 10px;
+
+    font-size: 16px;
+    line-height: 1.7;
+    a {
+      text-decoration: none;
+    }
+    &:first-child, &.empty:first-child {
+      border-top: none;
+    }
+
+    &:last-child, &.empty:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background: #fff;
+    }
+  }
+
+  &.empty {
+    .channel {
+      color: #777;
+      font-size: 13px;
+    }
+  }
 }
 
 #map, #chat, #info {

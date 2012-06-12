@@ -5,7 +5,8 @@ class Geochat.Views.Channels.ChannelView extends Backbone.View
   template: JST["backbone/templates/channels/channel"]
 
   # attributes
-  tagName: "tr"
+  tagName: "li"
+  className: "channel"
 
   # event mappings
   events:

@@ -14,6 +14,7 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
 
     $.get '/channels.json', (data)=>
       @channels.reset data
+      if @channels.length is 0 then window.location.hash = "/new"
       do gc.dfd.resolve
 
   # route mappings
@@ -38,8 +39,8 @@ class Geochat.Routers.ChannelsRouter extends Backbone.Router
   #
   index: ->
     gc.dfd.done =>
-      if window.trackPosition? then clearInterval(window.trackPosition)
-      if !!$('.navbar .channel-name').text() then $('.navbar .channel-name').text('Home')
+      if window.trackPosition? then navigator.geolocation.clearWatch(trackPosition)
+      $('.navbar .channel-name').text('channels')
       if @view and @view.nav then @view.nav.$el.remove() && delete @view.nav
 
       @view = new Geochat.Views.Channels.IndexView
