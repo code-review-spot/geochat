@@ -65,11 +65,17 @@ $gradient-bottom: #06a;
     color: #fff;
   }
 
-  .nav.channel li.active {
-    &.active > a, &.active > a:hover {
-      color: white;
-      text-decoration: none;
-      background-color: #06a;
+  .nav.channel {
+    li {
+      &.active > a, &.active > a:hover {
+        color: white;
+        text-decoration: none;
+        background-color: #06a;
+      }
+      &.notify > a {
+        color: #fff199;
+        font-weight: bold;
+      }
     }
   }
 }

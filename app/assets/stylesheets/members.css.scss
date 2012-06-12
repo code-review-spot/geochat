@@ -1,20 +1,18 @@
 #info {
   ul.content {
-    li {
-      a {
-        color: #333;
-        text-decoration: none;
+    li, li a {
+      color: #333;
+      text-decoration: none;
 
-        img {
-          height: 32px;
-          width: 32px;
-          margin-right: 5px;
-        }
+      img {
+        height: 32px;
+        width: 32px;
+        margin-right: 5px;
+      }
 
-        span.name {
-          color: #06a;
-          font-weight: bold;
-        }
+      span.name {
+        color: #06a;
+        font-weight: bold;
       }
 
       &:hover {

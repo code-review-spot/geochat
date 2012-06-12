@@ -44,15 +44,15 @@ window.chat =
 
     # would be best to convert members and messages to models, collections and views
     html = """
-      <a href="http://twitter.com/#{member.info.nickname}" target="_blank">
-        <img src="#{member.info.image}">
-        <span class="name">#{member.info.nickname}</span>
-      </a>
+      <img src="#{member.info.image}">
+      <span class="name">#{member.info.nickname}</span>
     """
 
     $("<li id=\"presence-#{member.id}\" />")
       .html(html)
       .appendTo($info)
+      .click ->
+        geo.map.panTo(geo.markers[member.info.nickname].position)
 
   removeMember: (member)->
     $("#presence-#{member.id}").remove()
@@ -67,15 +67,48 @@ window.chat =
         .empty()
         .removeClass('empty')
 
-    html  = "<span class=\"name\">#{message.nickname}:</span>"
+    d = new Date()
+    hours = d.getHours()
+    minutes = d.getMinutes()
+
+    switch true
+      when hours > 12
+        hours -= 12
+        m = 'pm'
+      when hours is 0
+        hours = 12
+        m = 'am'
+      when hours is 12 then m = 'pm'
+      else m = 'am'
+
+    t = "#{hours}:#{minutes} #{m}"
+    dt = d.toLocaleString()
+
+    html = "<p><span class=\"name\">#{message.nickname}:</span>"
+    html += "<span class=\"text\"></span></p>"
+    html += "<time datetime=\"#{dt}\">#{t}</time>"
     text = " #{message.text}"
 
-    $('<li/>')
-      .text(text)
-      .prepend(html)
+    $('<li class="message"/>')
+      .append(html)
+        .find('.text').text(text).end()
       .prependTo($chat)
       .hide()
       .fadeIn('fast')
+    $nav = $('.navbar .nav.channel .chat')
+    if $nav.hasClass('active') then return
+    $nav.addClass('notify')
+    $count = $nav.find('a .count')
+    if $count.length > 0
+      str = $.trim($count.text())
+      str = str.substring(1, str.length-1)
+      c = parseInt str
+      gc.log(c, str)
+      c++ #hehe
+      $count.text(" (#{c})")
+    else
+      t = '<span class="count"> (1)</span>'
+      $nav.find('a').append(t)
 
   sendMessage: ->
     input = $('#sender textarea')
@@ -99,7 +132,8 @@ window.chat =
       position: position
 
   disconnect: ->
-    if chat.pusher? then chat.pusher.disconnect()
-    chat.channel = null
-    chat.channelName = null
-    geo.reset()
+    if chat.pusher?
+      chat.pusher.disconnect()
+      chat.channel = null
+      chat.channelName = null
+      geo.reset()

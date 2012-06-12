@@ -82,15 +82,15 @@ window.geo =
       "#{user.image}",
       new google.maps.Size(50,50),
       new google.maps.Point(0,0),
-      new google.maps.Point(12,12),
-      new google.maps.Size(24,24)
+      new google.maps.Point(16,16),
+      new google.maps.Size(32,32)
     )
 
     shadow = new google.maps.MarkerImage(
       'http://www.kith-kin.co.uk/assets/blog/black_pixel.gif',
-      new google.maps.Size(26,26),
+      new google.maps.Size(34,34),
       new google.maps.Point(0,0),
-      new google.maps.Point(13,13)
+      new google.maps.Point(17,17)
     )
 
     geo.markers[user.nickname] = marker = new google.maps.Marker
@@ -127,7 +127,7 @@ window.geo =
       gc.log(error)
 
     apiOptions=
-      maximumAge: 10000
+      maximumAge: 7000
       timeout: 5000
       enableHighAccuracy: true
 

@@ -22,6 +22,32 @@
   }
 }
 
+#chat {
+  ul.content {
+    li.message {
+      padding: 10px;
+      position: relative;
+      p {
+        margin: 0;
+        padding: 0 0 7px;
+      }
+      time {
+        color: #bbb;
+        float: right;
+        font-size: 11px;
+        position: absolute;
+        bottom: 3px;
+        right: 7px;
+      }
+      &:hover {
+        time {
+          color: #8ac;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 767px) {
   #sender {
     textarea {

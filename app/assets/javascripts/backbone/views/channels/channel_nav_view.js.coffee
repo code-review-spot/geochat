@@ -50,6 +50,7 @@ class Geochat.Views.Channels.ChannelNavView extends Backbone.View
   # @param event [Object] the DOM event
   #
   showChat: (event)->
+    @$el.find('.chat').removeClass('notify').find('.count').remove()
     window.location.hash = "/channels/#{@model.get('name')}"
 
     @$info.hide()
