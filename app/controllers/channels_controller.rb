@@ -19,9 +19,9 @@ class ChannelsController < ApplicationController
     @channel = current_user.channels.build(params[:channel])
 
     if @channel.save
-      respond_with @channel
+      respond_with @channel, status: :created, location: @channel
     else
-      respond_with @channel.errors
+      respond_with @channel.errors, status: :unprocessable_entity
     end
   end
 
