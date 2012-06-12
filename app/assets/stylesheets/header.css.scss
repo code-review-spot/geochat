@@ -1,25 +1,16 @@
 body {
   padding-top: 60px;
 }
-
-@media (max-width: 979px) {
-  body {
-    padding-top: 0;
-  }
-}
-
 .navbar {
   height: 40px;
   z-index: 999;
-
   .divider-vertical {
-    margin: 0;
     background-color: #06a;
     background-color: rgba(0,80,160,.6);
     border-right: 1px solid #2ad;
     border-right: 1px solid rgba(60,180,240,.6);
+    margin: 0;
   }
-
   p.channel-name {
     display: block;
     float: left;
@@ -28,7 +19,6 @@ body {
     font-weight: bold;
     line-height: 1;
   }
-
   .session {
     .avatar {
       border-radius: 4px;
@@ -37,40 +27,26 @@ body {
     }
   }
 }
-
 .navbar-fixed-top .container {
   width: auto;
   padding: 0 10px 0 15px;
 }
 
-$gradient-top: #3ae;
-$gradient-bottom: #06a;
-
 .navbar-inner {
+  @include background-image(linear-gradient(#3ae, #06a));
+  @include box-shadow(rgba(50, 50, 50, 0.5) 0 1px 5px, rgba(50, 50, 50, 0.1) inset 0 -1px 0);
   color: #fff;
   background-color: #3ae;
-  background-image: -moz-linear-gradient(top, $gradient-top, $gradient-bottom);
-  background-image: -ms-linear-gradient(top, $gradient-top, $gradient-bottom);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gradient-top), to($gradient-bottom));
-  background-image: -webkit-linear-gradient(top, $gradient-top, $gradient-bottom);
-  background-image: -o-linear-gradient(top, $gradient-top, $gradient-bottom);
-  background-image: linear-gradient(top, $gradient-top, $gradient-bottom);
   background-repeat: repeat-x;
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='$gradient-top', endColorstr='$gradient-bottom', GradientType=0);
-  -webkit-box-shadow: 0 1px 5px rgba(50, 50, 50, 0.5), inset 0 -1px 0 rgba(50, 50, 50, 0.1);
-     -moz-box-shadow: 0 1px 5px rgba(50, 50, 50, 0.5), inset 0 -1px 0 rgba(50, 50, 50, 0.1);
-          box-shadow: 0 1px 5px rgba(50, 50, 50, 0.5), inset 0 -1px 0 rgba(50, 50, 50, 0.1);
-
   .brand, .nav > li > a {
     color: #fff;
   }
-
   .nav.channel {
     li {
       &.active > a, &.active > a:hover {
+        background-color: #06a;
         color: white;
         text-decoration: none;
-        background-color: #06a;
       }
       &.notify > a {
         color: #fff199;
@@ -81,6 +57,9 @@ $gradient-bottom: #06a;
 }
 
 @media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
   .navbar {
     position: relative;
   }

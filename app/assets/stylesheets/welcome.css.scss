@@ -1,74 +1,78 @@
-body.welcome {
-  background: #437181 url(/assets/welcome_bg.jpg) center top repeat fixed;
+@import "compass";
+@import "lib/bootstrap.scss";
+@import "lib/font-awesome.scss";
+
+@import "patches/bootstrap-responsive.css.scss";
+
+body {
+  background: #e3e3e3;
   padding-top: 20px;
-  #main {
-    background: rgba(255,255,255,.6);
-    border-radius: 6px 6px 0 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,.1);
-    padding: 15px;
-    h1 {
-    padding-bottom: 5px;
-    }
-    .hero-unit {
-      background: url(/assets/welcome.jpg) right top no-repeat;
-      background-size: cover;
-      box-shadow: inset 0 -5px 15px rgba(0,0,0,.5);
-      color: #fff;
-      position: relative;
+}
+#main {
+  @include border-radius(6px 6px 0 0);
+  @include box-shadow(rgba(0,0,0,.1) 0 1px 3px);
+  background: rgba(255,255,255,.6);
+  padding: 15px;
+  h1 {
+  padding-bottom: 5px;
+  }
+  .hero-unit {
+    @include background-size(cover);
+    @include box-shadow(#000 0 5px 40px inset);
+    background: none repeat scroll 0 0 #444;
+    color: #fff;
+    position: relative;
+    text-shadow: 0 1px 0 #000;
+    .sign-in {
+      color: white;
+      font-size: 18px;
+      padding: 8px 24px;
       text-shadow: 0 1px 0 #000;
-      .sign-in {
-        color: white;
-        font-size: 18px;
-        padding: 8px 24px;
-        text-shadow: 0 1px 0 #000;
-      }
-    }
-    // a {
-    //   color: #4380bc;
-    //   &:hover {
-    //     color: #3a9acf;
-    //   }
-    // }
-  }
-  section {
-    padding-top: 40px;
-    .page-header {
-      border-bottom: 1px solid rgba(0,0,0,.09);
-    }
-    h4 {
-      padding: 10px 0;
-    }
-    .row {
-      margin-bottom: 15px;
     }
   }
-  footer {
-    border-top: 1px solid rgba(0,0,0,.09);
-    font-size: 13px;
-    margin-top: 45px;
-    overflow: hidden;
-    padding: 35px 0 36px;
-    p {
-      margin-bottom: 0;
-      color: #777;
-    }
+}
+section {
+  padding-top: 40px;
+  .page-header {
+    border-bottom: 1px solid rgba(0,0,0,.09);
+  }
+  h4 {
+    padding: 10px 0;
+  }
+  .row {
+    margin-bottom: 15px;
+  }
+}
+footer {
+  border-top: 1px solid rgba(0,0,0,.09);
+  font-size: 13px;
+  margin-top: 45px;
+  overflow: hidden;
+  padding: 35px 0 36px;
+  p {
+    margin-bottom: 0;
+    color: #777;
   }
 }
 
 @media (max-width: 979px) {
-  body.welcome {
+  body {
     padding-top: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  body.welcome {
+  #main {
     .hero-unit {
-      background: url(/assets/welcome_mobile.jpg) right top no-repeat;
       padding: 25px 30px 45px;
+      h1 {
+        font-size: 32px;
+        line-height: 1;
+        word-wrap: break-word;
+      }
       .sign-in {
-        box-sizing: border-box;
-        border-radius: 0 0 5px 5px;
+        @include border-radius(0 0 5px 5px);
+        @include box-sizing(border-box);
         width: 100%;
         position: absolute;
         bottom: 0;
@@ -79,16 +83,23 @@ body.welcome {
         text-align: center;
       }
       p {
+        @include border-radius(4px);
         background: rgba(0,0,0,.6);
-        border-radius: 4px;
         display: inline-block;
         padding: 1px 10px 3px;
       }
     }
-    h1 {
-      font-size: 32px;
-      line-height: 1;
-      word-wrap: break-word;
+  }
+}
+
+@media (min-width: 481px) {
+  body {
+    background: url(/assets/welcome_bg.jpg) 0 0 repeat fixed; 
+  }
+  #main {
+    .hero-unit {
+      @include box-shadow(rgba(0,0,0,.5) 0 -5px 15px inset);
+      background: url(/assets/welcome.jpg) right top no-repeat;
     }
   }
 }

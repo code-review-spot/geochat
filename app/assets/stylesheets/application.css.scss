@@ -1,0 +1,26 @@
+@import "compass";
+@import "lib/bootstrap.scss";
+@import "lib/font-awesome.scss";
+@import "patches/bootstrap-responsive.css.scss";
+
+html {
+  background-color: #fafafa;
+  height: 100%;
+}
+body {
+  background-color: transparent;
+  text-rendering: optimizeLegibility;
+}
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+.group:after { clear:both; }
+.group { zoom:1; }
+
+@import "header.css.scss";
+@import "channels.css.scss";
+@import "map.css.scss";
+@import "messages.css.scss";
+@import "members.css.scss";

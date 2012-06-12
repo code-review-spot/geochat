@@ -3,42 +3,50 @@
     padding: 9px 0;
   }
 }
-
 #channels {
+  @include border-radius(5px);
+  @include box-shadow(rgba(0,0,0,.05) 0 1px 2px);
   background: #fcfcfc;
   border: 1px solid #e1e1e1;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0,0,0,.05);
   list-style: none;
   margin: 15px 0 0;
   overflow: hidden;
   padding: 0;
-
   li.channel {
-    color: #333;
-    display: block;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #fff;
+    color: #333;
+    display: block;
+    line-height: 1.7;
+    font-size: 16px;
     overflow: hidden;
     padding: 10px;
-
-    font-size: 16px;
-    line-height: 1.7;
     a {
       text-decoration: none;
+      &.channel-name {
+        color: #444;
+      }
+      &.destroy {
+        color: #999;
+        &:hover {
+          color: #b22;
+        }
+      }
     }
     &:first-child, &.empty:first-child {
       border-top: none;
     }
-
     &:last-child, &.empty:last-child {
       border-bottom: none;
     }
     &:hover {
       background: #fff;
+      cursor: pointer;
+      a.channel-name {
+        color: #08c;
+      }
     }
   }
-
   &.empty {
     .channel {
       color: #777;
@@ -46,7 +54,6 @@
     }
   }
 }
-
 #map, #chat, #info {
   background: #f1f1f1;
   background: rgba(255,255,255,.5);
@@ -55,50 +62,42 @@
   bottom: 0;
   left: 0;
 }
-
 #map {
   right: 0;
   z-index: 1;
 }
-
 #chat, #info {
   display: none;
   overflow: auto;
   width: 320px;
   z-index: 10;
-
   ul.content {
+    @include border-radius(5px);
+    @include box-shadow(rgba(0,0,0,.15) 0 1px 2px);
     background: #fafafa;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.15);
     list-style: none;
     margin: 10px;
     overflow: hidden;
     padding: 0;
-
     li {
-      color: #333;
-      display: block;
       border-bottom: 1px solid #ddd;
       border-top: 1px solid #fff;
+      color: #333;
+      display: block;
       overflow: hidden;
       padding: 10px;
-
       span.name {
         color: #06a;
         font-weight: bold;
       }
-
       &:first-child, &.empty:first-child {
         border-top: none;
       }
-
       &:last-child, &.empty:last-child {
         border-bottom: none;
       }
     }
-
     &.empty {
       li {
         color: #333;

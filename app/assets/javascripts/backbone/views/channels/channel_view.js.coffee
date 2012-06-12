@@ -11,6 +11,7 @@ class Geochat.Views.Channels.ChannelView extends Backbone.View
   # event mappings
   events:
     "click .destroy" : "destroy"
+    "click"          : "show"
 
   # Renders the view.
   #
@@ -18,9 +19,15 @@ class Geochat.Views.Channels.ChannelView extends Backbone.View
     @$el.html @template @model.toJSON()
     return @
 
+  # Shows the channel.
+  #
+  show: ->
+    window.location.hash = "/channels/#{@model.get('name')}"
+
   # Permanently deletes the channel.
   #
-  destroy: ->
+  destroy: (event)->
+    event.stopPropagation()
     @model.destroy()
     @remove()
 

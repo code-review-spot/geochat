@@ -3,18 +3,15 @@
     li, li a {
       color: #333;
       text-decoration: none;
-
       img {
         height: 32px;
         width: 32px;
         margin-right: 5px;
       }
-
       span.name {
         color: #06a;
         font-weight: bold;
       }
-
       &:hover {
         background: #fff;
       }
