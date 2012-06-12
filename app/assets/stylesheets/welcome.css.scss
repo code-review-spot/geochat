@@ -3,16 +3,37 @@ body.welcome {
   h1 {
     padding-bottom: 5px;
   }
-  .sign-in {
-    background: transparent url(/assets/twitter_dark.png) 0 0 no-repeat;
-    display: block;
-    height: 24px;
-    overflow: hidden;
-    text-indent: -999em;
-    width: 151px;
+  .hero-unit {
+    background: url(/assets/welcome.jpg) right top no-repeat;
+    background-size: cover;
+    color: #fff;
+    position: relative;
+    text-shadow: 0 1px 0 #000;
+    .sign-in {
+      font-size: 18px;
+      padding: 8px 24px;
+      text-shadow: 0 1px 0 #000;
+    }
   }
   section {
     padding-top: 40px;
+    h4 {
+      padding: 10px 0;
+    }
+    .row {
+      margin-bottom: 15px;
+    }
+  }
+  footer {
+    border-top: 1px solid #e5e5e5;
+    font-size: 13px;
+    margin-top: 45px;
+    overflow: hidden;
+    padding: 35px 0 36px;
+    p {
+      margin-bottom: 0;
+      color: #777;
+    }
   }
 }
 
@@ -22,18 +43,29 @@ body.welcome {
   }
 }
 
-@media (max-width: 767px) {
-  .welcome {
-    h1 {
-      font-size: 42px;
-    }
-  }
-}
-
 @media (max-width: 480px) {
-  .welcome {
+  body.welcome {
     .hero-unit {
-      padding: 30px;
+      background: url(/assets/welcome_mobile.jpg) right top no-repeat;
+      padding: 25px 30px 45px;
+      .sign-in {
+        box-sizing: border-box;
+        border-radius: 0 0 5px 5px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+      }
+      p {
+        background: rgba(0,0,0,.6);
+        border-radius: 4px;
+        display: inline-block;
+        padding: 1px 10px 3px;
+      }
     }
     h1 {
       font-size: 32px;

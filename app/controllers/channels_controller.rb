@@ -5,7 +5,14 @@ class ChannelsController < ApplicationController
   def index
     @channels = current_user.channels
 
-    respond_with @channels
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.json { render json: @channels }
+    end
+  end
+
+  def show
+    redirect_to '/#' + request.original_fullpath
   end
 
   def create

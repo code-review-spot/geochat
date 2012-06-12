@@ -1,8 +1,6 @@
 Geochat::Application.routes.draw do
   # channels
-  get '/channels' => 'channels#index'
-  post '/channels' => 'channels#create'
-  delete '/channels/:id' => 'channels#destroy'
+  resources :channels
 
   # messages
   post '/messages' => 'messages#create'
@@ -18,4 +16,7 @@ Geochat::Application.routes.draw do
 
   # root
   root :to => 'home#index'
+
+  # errors
+  match '*a', to: 'errors#routing'
 end
