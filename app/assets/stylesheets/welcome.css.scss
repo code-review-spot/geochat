@@ -1,22 +1,40 @@
 body.welcome {
+  background: #437181 url(/assets/welcome_bg.jpg) center top repeat fixed;
   padding-top: 20px;
-  h1 {
+  #main {
+    background: rgba(255,255,255,.6);
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    padding: 15px;
+    h1 {
     padding-bottom: 5px;
-  }
-  .hero-unit {
-    background: url(/assets/welcome.jpg) right top no-repeat;
-    background-size: cover;
-    color: #fff;
-    position: relative;
-    text-shadow: 0 1px 0 #000;
-    .sign-in {
-      font-size: 18px;
-      padding: 8px 24px;
-      text-shadow: 0 1px 0 #000;
     }
+    .hero-unit {
+      background: url(/assets/welcome.jpg) right top no-repeat;
+      background-size: cover;
+      box-shadow: inset 0 -5px 15px rgba(0,0,0,.5);
+      color: #fff;
+      position: relative;
+      text-shadow: 0 1px 0 #000;
+      .sign-in {
+        color: white;
+        font-size: 18px;
+        padding: 8px 24px;
+        text-shadow: 0 1px 0 #000;
+      }
+    }
+    // a {
+    //   color: #4380bc;
+    //   &:hover {
+    //     color: #3a9acf;
+    //   }
+    // }
   }
   section {
     padding-top: 40px;
+    .page-header {
+      border-bottom: 1px solid rgba(0,0,0,.09);
+    }
     h4 {
       padding: 10px 0;
     }
@@ -25,7 +43,7 @@ body.welcome {
     }
   }
   footer {
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid rgba(0,0,0,.09);
     font-size: 13px;
     margin-top: 45px;
     overflow: hidden;
