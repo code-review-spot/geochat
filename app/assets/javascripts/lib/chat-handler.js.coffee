@@ -81,6 +81,8 @@ window.chat =
       when hours is 12 then m = 'pm'
       else m = 'am'
 
+    if String(minutes).length is 1 then minutes = '0' + minutes
+
     t = "#{hours}:#{minutes} #{m}"
     dt = d.toLocaleString()
 
