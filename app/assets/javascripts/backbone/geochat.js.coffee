@@ -18,4 +18,4 @@ $ ->
 
   # initialize router
   window.router = new Geochat.Routers.ChannelsRouter
-  do Backbone.history.start
+  Backbone.history.start()
