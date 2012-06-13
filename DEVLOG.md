@@ -1,5 +1,33 @@
 # Dev Log
 
+## 2012 June 12
+
+### Status Update
+
+#### Done
+
+* Visual indicators for new messages (message count when panel is hidden)
+* Reduced front end file sizes (asset compression with scss and uglifier)
+* Timestamps to messages
+* Pan to location on member click in info panel
+* New icon set
+* New welcome page
+* CoffeeScript API documentation
+* Resolved overlapping markers issue (using overlapping marker spiderfier)
+* Improved routing error handling, added 404 to Backbone & Rails
+* Added proper compass import, refactored CSS
+
+#### Not done
+
+* Notification for members joining and leaving
+* Improve user/channels data relationships
+* Android issues
+* Analytics
+* Error tracking
+
+It would be nice to make everything perfect before releasing it but then it
+would probably never be released. Here we go!
+
 ## 2012 May 25
 
 ### So many updates!
@@ -7,7 +35,7 @@
 * Pusher presence channels have been added and are working like a charm
 * 404 behavior added to the channels router
 * Messages and members style overhauled
-    * width switches too 100% below 480px screen width
+  * width switches too 100% below 480px screen width
 * Made the global nav menu responsive
 * Added support for sharing location of multiple users at a time
 * Everything behaves as it should when members join or leave a channel
@@ -40,7 +68,9 @@ Apparently making the pusher credentials environmental variables is the
 cause of this fiasco. I was making the pusher key available to the
 front end via a constants.js.coffee file, but it appears Heroku doesn't
 make environmental variables available to the asset pipeline during
-slug compilation, so on production the `gc.PUSHER_KEY` constant was an
+slug compilation (see troubleshooting section
+[here](https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar)),
+so on production the `gc.PUSHER_KEY` constant was an
 empty string. This still doesn't explain why I was getting the error
 on development, but that issue appears to have gone away for no reason.
 
