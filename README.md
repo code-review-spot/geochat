@@ -1,6 +1,6 @@
 # Geochat
 
-real-time, location-aware chat
+Real-time, location-aware chat.
 
 ## Getting Started
 
@@ -21,16 +21,17 @@ you migrate the database like so:
 
 ```$ bundle exec rake db:migrate```
 
-Once that's done, you need to register your app with
-[Pusher](http://pusher.com/). You can get a free API account for development
-(that's what I'm using right now). If you want to use Heroku for deployment,
-you can add Pusher support through their
+Geochat is configured to use Pusher and Heroku. To get this working locally,
+you need to register your app with [Pusher](http://pusher.com/). You can get a
+free API account for development (that's what I'm using right now). If you want
+to use Heroku for deployment, you can add Pusher support through their
 [Pusher add-on](https://addons.heroku.com/pusher) without needing to register
 with Pusher directly.
 
 After you're set up with Pusher, you'll need to add environmental variables.
-On development, you'll need the app ID, key and secret provided by Pusher. You
-can set them in your bash profile like so:
+Please note that Pusher provides you with two sets of credentials, one for
+development and one for production. On development, you'll need the app ID, key
+and secret provided by Pusher. You can set them in your bash profile like so:
 
 ```
 # Geochat Pusher credentials
@@ -45,11 +46,9 @@ For production, you'll need to add the Pusher key like so:
 heroku config:add GEOCHAT_PUSHER_KEY=YOUR_PRODUCTION_KEY
 ```
 
-See the related article for more info:
-[Heroku: Configuration and Config Vars](https://devcenter.heroku.com/articles/config-vars)
-
-Please note Pusher provides you with two sets of credentials, one for
-development and one for production.
+See Heroku's article on
+[Configuration and Config Vars](https://devcenter.heroku.com/articles/config-vars)
+for more info.
 
 Once all of that's done, you should be good to go. Happy coding!
 
