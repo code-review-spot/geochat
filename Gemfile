@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.0'
+gem 'rails', '3.2.11'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'jquery-rails'
@@ -11,7 +11,7 @@ gem 'em-http-request' # Required by trigger_async
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.2.3'
+  gem 'sass-rails', '3.2.5'
   gem 'compass-rails'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
