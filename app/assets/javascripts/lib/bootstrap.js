@@ -18,9 +18,9 @@
  * ========================================================== */
 
 
-!function ($) {
+! function($) {
 
-  $(function () {
+  $(function() {
 
     "use strict"; // jshint ;_;
 
@@ -28,21 +28,20 @@
     /* CSS TRANSITION SUPPORT (http://www.modernizr.com/)
      * ======================================================= */
 
-    $.support.transition = (function () {
+    $.support.transition = (function() {
 
-      var transitionEnd = (function () {
+      var transitionEnd = (function() {
 
-        var el = document.createElement('bootstrap')
-          , transEndEventNames = {
-               'WebkitTransition' : 'webkitTransitionEnd'
-            ,  'MozTransition'    : 'transitionend'
-            ,  'OTransition'      : 'oTransitionEnd'
-            ,  'msTransition'     : 'MSTransitionEnd'
-            ,  'transition'       : 'transitionend'
-            }
-          , name
+        var el = document.createElement('bootstrap'),
+          transEndEventNames = {
+            'WebkitTransition': 'webkitTransitionEnd',
+            'MozTransition': 'transitionend',
+            'OTransition': 'oTransitionEnd',
+            'msTransition': 'MSTransitionEnd',
+            'transition': 'transitionend'
+          }, name
 
-        for (name in transEndEventNames){
+        for (name in transEndEventNames) {
           if (el.style[name] !== undefined) {
             return transEndEventNames[name]
           }
@@ -79,31 +78,33 @@
  * ============================================================ */
 
 
-!function ($) {
+! function($) {
 
   "use strict"; // jshint ;_;
 
 
- /* DROPDOWN CLASS DEFINITION
-  * ========================= */
+  /* DROPDOWN CLASS DEFINITION
+   * ========================= */
 
-  var toggle = '[data-toggle="dropdown"]'
-    , Dropdown = function (element) {
-        var $el = $(element).on('click.dropdown.data-api', this.toggle)
-        $('html').on('click.dropdown.data-api', function () {
-          $el.parent().removeClass('open')
+  var toggle = '[data-toggle="dropdown"]',
+    Dropdown = function(element) {
+      var $el = $(element)
+        .on('click.dropdown.data-api', this.toggle)
+      $('html')
+        .on('click.dropdown.data-api', function() {
+          $el.parent()
+            .removeClass('open')
         })
-      }
+    }
 
   Dropdown.prototype = {
 
     constructor: Dropdown
 
-  , toggle: function (e) {
-      var $this = $(this)
-        , $parent
-        , selector
-        , isActive
+    ,
+    toggle: function(e) {
+      var $this = $(this),
+        $parent, selector, isActive
 
       if ($this.is('.disabled, :disabled')) return
 
@@ -129,19 +130,21 @@
   }
 
   function clearMenus() {
-    $(toggle).parent().removeClass('open')
+    $(toggle)
+      .parent()
+      .removeClass('open')
   }
 
 
   /* DROPDOWN PLUGIN DEFINITION
    * ========================== */
 
-  $.fn.dropdown = function (option) {
-    return this.each(function () {
-      var $this = $(this)
-        , data = $this.data('dropdown')
-      if (!data) $this.data('dropdown', (data = new Dropdown(this)))
-      if (typeof option == 'string') data[option].call($this)
+  $.fn.dropdown = function(option) {
+    return this.each(function() {
+      var $this = $(this),
+        data = $this.data('dropdown')
+        if (!data) $this.data('dropdown', (data = new Dropdown(this)))
+        if (typeof option == 'string') data[option].call($this)
     })
   }
 
@@ -151,10 +154,13 @@
   /* APPLY TO STANDARD DROPDOWN ELEMENTS
    * =================================== */
 
-  $(function () {
-    $('html').on('click.dropdown.data-api', clearMenus)
+  $(function() {
+    $('html')
+      .on('click.dropdown.data-api', clearMenus)
     $('body')
-      .on('click.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
+      .on('click.dropdown', '.dropdown form', function(e) {
+        e.stopPropagation()
+      })
       .on('click.dropdown.data-api', toggle, Dropdown.prototype.toggle)
   })
 
@@ -179,15 +185,15 @@
  * ============================================================ */
 
 
-!function ($) {
+! function($) {
 
   "use strict"; // jshint ;_;
 
 
- /* COLLAPSE PUBLIC CLASS DEFINITION
-  * ================================ */
+  /* COLLAPSE PUBLIC CLASS DEFINITION
+   * ================================ */
 
-  var Collapse = function (element, options) {
+  var Collapse = function(element, options) {
     this.$element = $(element)
     this.options = $.extend({}, $.fn.collapse.defaults, options)
 
@@ -202,16 +208,15 @@
 
     constructor: Collapse
 
-  , dimension: function () {
+    ,
+    dimension: function() {
       var hasWidth = this.$element.hasClass('width')
       return hasWidth ? 'width' : 'height'
     }
 
-  , show: function () {
-      var dimension
-        , scroll
-        , actives
-        , hasData
+    ,
+    show: function() {
+      var dimension, scroll, actives, hasData
 
       if (this.transitioning) return
 
@@ -231,7 +236,8 @@
       this.$element[dimension](this.$element[0][scroll])
     }
 
-  , hide: function () {
+    ,
+    hide: function() {
       var dimension
       if (this.transitioning) return
       dimension = this.dimension()
@@ -240,26 +246,26 @@
       this.$element[dimension](0)
     }
 
-  , reset: function (size) {
+    ,
+    reset: function(size) {
       var dimension = this.dimension()
 
       this.$element
-        .removeClass('collapse')
-        [dimension](size || 'auto')
-        [0].offsetWidth
+        .removeClass('collapse')[dimension](size || 'auto')[0].offsetWidth
 
       this.$element[size !== null ? 'addClass' : 'removeClass']('collapse')
 
       return this
     }
 
-  , transition: function (method, startEvent, completeEvent) {
-      var that = this
-        , complete = function () {
-            if (startEvent.type == 'show') that.reset()
-            that.transitioning = 0
-            that.$element.trigger(completeEvent)
-          }
+    ,
+    transition: function(method, startEvent, completeEvent) {
+      var that = this,
+        complete = function() {
+          if (startEvent.type == 'show') that.reset()
+          that.transitioning = 0
+          that.$element.trigger(completeEvent)
+        }
 
       this.$element.trigger(startEvent)
 
@@ -274,21 +280,22 @@
         complete()
     }
 
-  , toggle: function () {
+    ,
+    toggle: function() {
       this[this.$element.hasClass('in') ? 'hide' : 'show']()
     }
 
   }
 
 
- /* COLLAPSIBLE PLUGIN DEFINITION
-  * ============================== */
+  /* COLLAPSIBLE PLUGIN DEFINITION
+   * ============================== */
 
-  $.fn.collapse = function (option) {
-    return this.each(function () {
-      var $this = $(this)
-        , data = $this.data('collapse')
-        , options = typeof option == 'object' && option
+  $.fn.collapse = function(option) {
+    return this.each(function() {
+      var $this = $(this),
+        data = $this.data('collapse'),
+        options = typeof option == 'object' && option
       if (!data) $this.data('collapse', (data = new Collapse(this, options)))
       if (typeof option == 'string') data[option]()
     })
@@ -301,18 +308,20 @@
   $.fn.collapse.Constructor = Collapse
 
 
- /* COLLAPSIBLE DATA-API
-  * ==================== */
+  /* COLLAPSIBLE DATA-API
+   * ==================== */
 
-  $(function () {
-    $('body').on('click.collapse.data-api', '[data-toggle=collapse]', function ( e ) {
-      var $this = $(this), href
-        , target = $this.attr('data-target')
-          || e.preventDefault()
-          || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
-        , option = $(target).data('collapse') ? 'toggle' : $this.data()
-      $(target).collapse(option)
-    })
+  $(function() {
+    $('body')
+      .on('click.collapse.data-api', '[data-toggle=collapse]', function(e) {
+        var $this = $(this),
+          href, target = $this.attr('data-target') || e.preventDefault() || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
+          ,
+          option = $(target)
+            .data('collapse') ? 'toggle' : $this.data()
+          $(target)
+            .collapse(option)
+      })
   })
 
 }(window.jQuery);
